@@ -137,7 +137,7 @@ var MapRegionInput = React.createClass({
 
 });
 
-var TripMapView = React.createClass({
+var MapViewExample = React.createClass({
 
   getInitialState() {
     return {
@@ -231,4 +231,4 @@ var styles = StyleSheet.create({
   },
 });
 
-module.exports = TripMapView;
+module.exports = MapViewExample;

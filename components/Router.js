@@ -11,7 +11,8 @@ var {Route, Schema, Animations, Actions, TabBar} = RNRF;
 var Error = require('./layout/Error');
 var Home = require('./layout/Home');
 var TabView = require('./layout/TabView');
-var TripMapView = require('./layout/TripMapView');
+var MapViewExample = require('./layout/MapView');
+var WebViewExample = require('./layout/WebView');
 var ReactNativeModalBox = require('./layout/ReactNativeModalBox');
 
 // Redux stuff is optional
@@ -83,6 +84,7 @@ export default class Example extends React.Component {
                     <Route name="register2" component={Register} title="Register2"  schema="withoutAnimation"/>
                     <Route name="error" type="modal" component={Error}/>
                     <Route name="modalBox" type="modal" component={ReactNativeModalBox}/>
+                    <Route name="webview" title="WebView" component={WebViewExample} showNavigationBar={false}/>
                     <Route name="tabbar">
                         <Router footer={TabBar} showNavigationBar={false}>
                             <Route name="tab1" schema="tab" title="Tab #1" >
@@ -98,8 +100,7 @@ export default class Example extends React.Component {
                                 </Router>
                             </Route>
                             <Route name="tab3" schema="tab" title="Tab #3" component={TabView} hideTabBar={true}/>
-                            <Route name="tab4" schema="tab" title="Tab #4" component={TabView} />
-                            <Route name="tab5" schema="tab" title="MapView" component={TripMapView} />
+                            <Route name="tab4" schema="tab" title="MapView" component={MapViewExample} />
                         </Router>
                     </Route>
                     <Route name="launch" header={Header} initial={true} component={Launch} wrapRouter={true} title="Launch" hideNavBar={true}/>
