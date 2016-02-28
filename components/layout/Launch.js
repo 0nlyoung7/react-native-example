@@ -19,6 +19,7 @@ class Launch extends React.Component {
                 <Button onPress={Actions.register}>Go to Register page</Button>
                 <Button onPress={Actions.register2}>Go to Register page without animation</Button>
                 <Button onPress={Actions.webview}>Go to WebView page</Button>
+                <Button onPress={Actions.webview2}>Go to WebView page with Bridge</Button>
                 <Button onPress={()=>Actions.error("Error message")}>Popup error</Button>
                 <Button onPress={Actions.modalBox}>PopUp with ReactNativeModalBox</Button>
                 <Button onPress={Actions.tabbar}>Go to TabBar page</Button>
