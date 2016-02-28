@@ -23,6 +23,7 @@ class Launch extends React.Component {
                 <Button onPress={()=>Actions.error("Error message")}>Popup error</Button>
                 <Button onPress={Actions.modalBox}>PopUp with ReactNativeModalBox</Button>
                 <Button onPress={Actions.tabbar}>Go to TabBar page</Button>
+                <Button onPress={Actions.form}>Go to Form page</Button>
                 <Button onPress={()=>Actions.showActionSheet({callback:index=>alert("Selected:"+index)})}>Show ActionSheet</Button>
             </View>
         );
