@@ -8,6 +8,8 @@ var {
   StyleSheet
 } = React;
 
+var HashTagInput = require( '../libs/HashTagInput' );
+
 var FormExample2 = React.createClass({
   getInitialState: function() {
     return {
@@ -50,6 +52,8 @@ var FormExample2 = React.createClass({
               </View>
             </View>
           </View>
+
+          <HashTagInput />
         </View>
       </View>
     );
