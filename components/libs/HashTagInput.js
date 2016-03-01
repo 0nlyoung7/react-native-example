@@ -37,22 +37,64 @@ var HashTagInput = React.createClass({
   			tags: []
   		}
   	},
-  	_enterInputFormatting: function(){
+  	_addTag: function(){
+  		var textValue = this.state.textValue;
   		this.state.tags.push( {'name':this.state.textValue} );
-  		return 
+		setTimeout(() => {
+			this._clearText();
+			this.state.textValue = '';
+		}, 1);
+
+		return;
   	},
+  	_removeTag: function(){
+  		var tsize = this.state.tags.length;
+  		if( tsize >= 1 ){
+  			var newTags = this.state.tags.slice( 0, tsize-1 );
+  			var sliced = this.state.tags[tsize-1];
+
+			this._textInput.setNativeProps({text: sliced.name});
+			
+			this.setState({
+				tags: newTags,
+				textValue: sliced.name
+			});
+
+			this._textInput.focus() ;
+  		}
+  	},
+    _tagStringToArray: function(tagString){
+        //clean before splitting
+        tagString = tagString.trim();
+        tagString = tagString.replace(/\s/g, ';');
+        tagString = tagString.replace(/&nbsp;&nbsp;/g, ";");
+        tagString = tagString.replace(/&nbsp;/g, ";");
+        tagString = tagString.replace(/#/g, "");
+
+        return tagString.split(';');
+    },
 	_handleKeyPress: function(evt) {
-		console.log( evt.nativeEvent.key );
 		if( evt.nativeEvent.key == ' '){
 			//space bar is pressed
-			this._enterInputFormatting(this, -1);
+			this._addTag();
 			//_moveCursorToEndOfInput(this);
+		} else if( evt.nativeEvent.key == 'Backspace' ){
+			//backspace pressed
+			var currentText = this.state.textValue;
+
+	  		if( currentText.trim() == '' ){
+	  			console.log( 'remove' );
+	  			this._removeTag();
+	  		}
 		}
+	},
+	_clearText: function() {
+		this._textInput.setNativeProps({text: ''});
 	},
 	_renderTags: function(){
 
-		var tagNodes = this.state.tags.map(function(row) {
-			return <Text style={{alignSelf: 'center',padding:5,alignItems: 'center'}}>{row.name}</Text>
+		var tagNodes = this.state.tags.map(function(row, i) {
+			return <Text key={i} style={{alignSelf: 'center',padding:5,alignItems: 'center', color: 'blue'}}>#{row.name}</Text>
 		});
 
 		return tagNodes;
@@ -66,7 +108,8 @@ var HashTagInput = React.createClass({
   					{this._renderTags()}
   					</View>
   				</View>
-				<TextInput style={this.defaultStyles.defaultInput}
+				<TextInput ref={component => this._textInput = component} 
+					style={this.defaultStyles.defaultInput}
 					onChangeText={(text) => this.setState({textValue: text})}
 					onKeyPress={this._handleKeyPress}>
 				</TextInput>
@@ -76,8 +119,6 @@ var HashTagInput = React.createClass({
 	defaultStyles: {
 		defaultInput: {
 			height: 40,
-			borderColor: 'gray',
-			borderWidth: 1,
 			flex: 1,
 			width:100,
 			alignSelf: 'center',
@@ -95,7 +136,10 @@ var HashTagInput = React.createClass({
 		defaultView: {
 			flexDirection:'row',	     
 			justifyContent: 'center',
-			alignItems: 'stretch'
+			alignSelf: 'stretch',
+			alignItems: 'stretch',
+			borderColor: 'gray',
+			borderWidth: 1,
 	    }
 	},
 });
