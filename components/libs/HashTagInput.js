@@ -8,8 +8,14 @@ var {
 	TouchableHighlight,
 	View,
 	Text,
-	TextInput
+	TextInput,
+	Dimensions
 } = React;
+
+var {
+  width,
+  height
+} = Dimensions.get('window');
 
 var HashTagInput = React.createClass({
 
@@ -31,48 +37,63 @@ var HashTagInput = React.createClass({
 		onTagAdded: React.PropTypes.func,
 		onTagSearch: React.PropTypes.func
 	},
-  	getInitialState() {
-  		return {
-  			textValue: '',
-  			tags: []
-  		}
-  	},
-  	_addTag: function(){
-  		var textValue = this.state.textValue;
-  		this.state.tags.push( {'name':this.state.textValue} );
+	getInitialState() {
+		return {
+			textValue: '',
+			tags: [],
+			tagViewWidth: 0,
+		}
+	},
+    componentDidMount() {
+		this.measureTextInput();
+    },
+	measureTextInput: function(){
+		this._textInput.measure(this.logProgressBarLayout);
+	},
+	measureTagView: function(){
+		var self = this;
+		this._tagView.measure(function(ox, oy, w, h, px, py) {
+			if( w > 200 ){
+				self._textInput.setNativeProps({style:{flex: 0.2}});
+				self._tagView.setNativeProps({style:{flex: 0.8}});
+			}
+		});
+	},
+	logProgressBarLayout: function(ox, oy, w, h, px, py) {
+
+	},
+	_addTag: function(){
+		var textValue = this.state.textValue;
+		this.state.tags.push( {'name':this.state.textValue} );
 		setTimeout(() => {
 			this._clearText();
 			this.state.textValue = '';
+			this.measureTagView();
 		}, 1);
 
 		return;
-  	},
-  	_removeTag: function(){
-  		var tsize = this.state.tags.length;
-  		if( tsize >= 1 ){
-  			var newTags = this.state.tags.slice( 0, tsize-1 );
-  			var sliced = this.state.tags[tsize-1];
+	},
+	_removeTag: function(){
+		var tsize = this.state.tags.length;
+		if( tsize >= 1 ){
+			var newTags = this.state.tags.slice( 0, tsize-1 );
+			var sliced = this.state.tags[tsize-1];
 
 			this._textInput.setNativeProps({text: sliced.name});
-			
+
 			this.setState({
 				tags: newTags,
 				textValue: sliced.name
 			});
+		}
+	},
+	getTags: function(){
+		var tags = this.state.tags.map(function(row, i) {
+			return row.name;
+		});
 
-			this._textInput.focus() ;
-  		}
-  	},
-    _tagStringToArray: function(tagString){
-        //clean before splitting
-        tagString = tagString.trim();
-        tagString = tagString.replace(/\s/g, ';');
-        tagString = tagString.replace(/&nbsp;&nbsp;/g, ";");
-        tagString = tagString.replace(/&nbsp;/g, ";");
-        tagString = tagString.replace(/#/g, "");
-
-        return tagString.split(';');
-    },
+		return tags;
+	},
 	_handleKeyPress: function(evt) {
 		if( evt.nativeEvent.key == ' '){
 			//space bar is pressed
@@ -82,10 +103,9 @@ var HashTagInput = React.createClass({
 			//backspace pressed
 			var currentText = this.state.textValue;
 
-	  		if( currentText.trim() == '' ){
-	  			console.log( 'remove' );
-	  			this._removeTag();
-	  		}
+			if( currentText.trim() == '' ){
+				this._removeTag();
+			}
 		}
 	},
 	_clearText: function() {
@@ -99,41 +119,40 @@ var HashTagInput = React.createClass({
 
 		return tagNodes;
 	},
-  	render() {
-  		return (
+	render() {
+		return (
 
-  			<View style={this.defaultStyles.defaultView}>
-  				<View >
-  					<View style={this.defaultStyles.defaultTags}>
-  					{this._renderTags()}
-  					</View>
-  				</View>
+			<View style={this.defaultStyles.defaultView}>
+				<View ref={component => this._tagView = component}
+					style={this.defaultStyles.defaultTags}>
+					{this._renderTags()}
+				</View>
 				<TextInput ref={component => this._textInput = component} 
-					style={this.defaultStyles.defaultInput}
+					style={[this.defaultStyles.defaultInput]}
 					onChangeText={(text) => this.setState({textValue: text})}
 					onKeyPress={this._handleKeyPress}>
 				</TextInput>
 			</View>
 		);
-  	},
+	},
 	defaultStyles: {
 		defaultInput: {
 			height: 40,
-			flex: 1,
-			width:100,
+			flex:1,
 			alignSelf: 'center',
 			justifyContent: 'center',
 			alignItems: 'center',
-			flexDirection:'row',	
+			flexDirection:'row',
 		},
 		defaultTags: {
 			height: 40,
 			flexDirection:'row',
-		    justifyContent: 'center',
+		    justifyContent: 'flex-end',
 		    alignItems: 'center',
-		    alignSelf: 'stretch',
+		    alignSelf: 'flex-end',
 	    },
 		defaultView: {
+			margin: 10,
 			flexDirection:'row',	     
 			justifyContent: 'center',
 			alignSelf: 'stretch',
