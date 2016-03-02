@@ -15,6 +15,7 @@ var MapViewExample = require('./layout/MapView');
 var WebViewExample = require('./layout/WebView');
 var WebViewExample2 = require('./layout/WebView2');
 var FormExample = require('./layout/Form');
+var ProfileExample = require('./layout/Profile');
 var ReactNativeModalBox = require('./layout/ReactNativeModalBox');
 
 // Redux stuff is optional
@@ -89,6 +90,7 @@ export default class Example extends React.Component {
                     <Route name="webview" title="WebView" component={WebViewExample} showNavigationBar={false}/>
                     <Route name="webview2" title="WebView2" component={WebViewExample2} showNavigationBar={false}/>
                     <Route name="form" title="form" component={FormExample} showNavigationBar={false}/>
+                    <Route name="profile" title="profile" component={ProfileExample} showNavigationBar={false}/>
                     <Route name="tabbar">
                         <Router footer={TabBar} showNavigationBar={false}>
                             <Route name="tab1" schema="tab" title="Tab #1" >
