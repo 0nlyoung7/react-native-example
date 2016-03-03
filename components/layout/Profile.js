@@ -14,7 +14,7 @@ var ProfileExample = React.createClass({
       <View style={styles.container}>
         <View style={styles.navBar} />
         <View>
-          <View style={ styles.row }>
+          <View style={ styles.profileWrap }>
             <Image
               source={ { uri: 'https://scontent.xx.fbcdn.net/hprofile-xat1/v/t1.0-1/p320x320/12027641_10156169780310372_5819557272906950779_n.jpg?oh=832fb4926c959819d9a75df88d6fe5e3&oe=57609F35' } }
               style={ styles.cellImage } />
@@ -34,7 +34,7 @@ var ProfileExample = React.createClass({
                 Messages
               </Text>
               <View style={ styles.countWrapB } >
-                <Text stlye={ styles.labelW }>
+                <Text stlye={ styles.labelWrap }>
                   Scrap
                 </Text>
                 <Text style={ styles.countB} numberOfLines={ 1 }>
@@ -62,7 +62,7 @@ var styles = StyleSheet.create({
     height: 64,
     backgroundColor: '#f8f8f8'
   },
-  row: {
+  profileWrap: {
     flex: 1,
     alignItems: 'center',
     backgroundColor: 'white',
@@ -96,18 +96,11 @@ var styles = StyleSheet.create({
     right: 0,
     flexDirection: 'row'
   },
-  countWrap: {
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    fontSize: 12,
-    color: '#cccccc'
-  },
   message: {
     color: '#999999',
     fontSize: 12,
   },
-  labelW: {
+  labelWrap: {
     color: '#999999',
     fontSize: 12,
   },

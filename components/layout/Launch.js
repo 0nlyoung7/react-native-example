@@ -25,6 +25,7 @@ class Launch extends React.Component {
                 <Button onPress={Actions.tabbar}>Go to TabBar page</Button>
                 <Button onPress={Actions.form}>Go to Form page</Button>
                 <Button onPress={Actions.profile}>Go to Profile page</Button>
+                <Button onPress={Actions.listview}>Go to ListView page</Button>
                 <Button onPress={()=>Actions.showActionSheet({callback:index=>alert("Selected:"+index)})}>Show ActionSheet</Button>
             </View>
         );
