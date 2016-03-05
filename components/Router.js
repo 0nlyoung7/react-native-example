@@ -17,6 +17,7 @@ var WebViewExample2 = require('./layout/WebView2');
 var FormExample = require('./layout/Form');
 var ProfileExample = require('./layout/Profile');
 var ListViewExample = require('./layout/ListView');
+var GridViewExample = require('./layout/GridView');
 var ReactNativeModalBox = require('./layout/ReactNativeModalBox');
 
 // Redux stuff is optional
@@ -93,6 +94,8 @@ export default class Example extends React.Component {
                     <Route name="form" title="form" component={FormExample} showNavigationBar={false}/>
                     <Route name="profile" title="profile" component={ProfileExample} showNavigationBar={false}/>
                     <Route name="listview" title="listview" component={ListViewExample} showNavigationBar={false}/>
+                    <Route name="gridview" title="gridview" component={GridViewExample} showNavigationBar={false}/>
+
                     <Route name="tabbar">
                         <Router footer={TabBar} showNavigationBar={false}>
                             <Route name="tab1" schema="tab" title="Tab #1" >
