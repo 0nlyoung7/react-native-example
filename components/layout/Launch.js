@@ -27,6 +27,7 @@ class Launch extends React.Component {
                 <Button onPress={Actions.profile}>Go to Profile page</Button>
                 <Button onPress={Actions.listview}>Go to ListView page</Button>
                 <Button onPress={Actions.gridview}>Go to GridView page</Button>
+                <Button onPress={Actions.calendarview}>Go to CalendarView page</Button>
                 <Button onPress={()=>Actions.showActionSheet({callback:index=>alert("Selected:"+index)})}>Show ActionSheet</Button>
             </View>
         );

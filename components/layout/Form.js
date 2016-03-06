@@ -5,17 +5,27 @@ var {
   TextInput,
   TouchableHighlight,
   Switch,
-  StyleSheet
+  StyleSheet,
 } = React;
 
 var HashTagInput = require( '../libs/HashTagInput' );
 
 var FormExample2 = React.createClass({
+
+  getDefaultProps: function () {
+    return {
+      date: new Date(),
+      timeZoneOffsetInHours: (-1) * (new Date()).getTimezoneOffset() / 60,
+    };
+  },
   getInitialState: function() {
     return {
-      trueSwitchIsOn: true,
-      falseSwitchIsOn: false,
+      date: this.props.date,
+      timeZoneOffsetInHours: this.props.timeZoneOffsetInHours,
     };
+  },
+  onDateChange: function(date) {
+    this.setState({date: date});
   },
   render: function() {
     return (

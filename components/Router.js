@@ -12,6 +12,7 @@ var Error = require('./layout/Error');
 var Home = require('./layout/Home');
 var TabView = require('./layout/TabView');
 var MapViewExample = require('./layout/MapView');
+var CalendarExample = require('./layout/Calendar');
 var WebViewExample = require('./layout/WebView');
 var WebViewExample2 = require('./layout/WebView2');
 var FormExample = require('./layout/Form');
@@ -95,6 +96,7 @@ export default class Example extends React.Component {
                     <Route name="profile" title="profile" component={ProfileExample} showNavigationBar={false}/>
                     <Route name="listview" title="listview" component={ListViewExample} showNavigationBar={false}/>
                     <Route name="gridview" title="gridview" component={GridViewExample} showNavigationBar={false}/>
+                    <Route name="calendarview" title="calendarview" component={CalendarExample} showNavigationBar={false}/>
 
                     <Route name="tabbar">
                         <Router footer={TabBar} showNavigationBar={false}>
