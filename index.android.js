@@ -1,51 +1,40 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- */
-'use strict';
-import React, {
-  AppRegistry,
-  Component,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
+var React = require('react-native');
+var {AppRegistry, Navigator, StyleSheet,Text,View} = React;
+var RNGMap = require('react-native-gmaps');
 
-class BaseApp extends Component {
+var RNGMapsExample = React.createClass({
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Shake or press menu button for dev menu
-        </Text>
-      </View>
+      <RNGMap
+        ref={'gmap'}
+        style={ { height: 500, width: 500 } }
+        markers={ [
+              { coordinates: {lng: 0.1, lat: 51.0} },
+              { 
+                coordinates: {lng: -0.1, lat: 51.0}, 
+                title: "Click marker to see this title!",
+                snippet: "Subtitle",
+                id: 0,
+                /*
+                 * Able to use "my_icon" or {uri: 'my_icon', width: 100, height: 100 } here as well
+                 */
+                icon: require('image!my_icon'), // <-- android/app/src/main/res/drawable/my_icon.png
+                /*
+                 * color is only working with default icon
+                 */
+              }
+          ] }
+        zoomLevel={5}
+        onMapChange={(e) => console.log(e)}
+        onMapError={(e) => console.log('Map error --> ', e)}
+        center={ { lng: 34.1, lat: 51.0 } } 
+        /*
+         * clickMarker shows Info Window of Marker with id: 0,
+         * hides Info Window if given null
+         */
+        clickMarker={1}/>
     );
   }
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
 });
 
-AppRegistry.registerComponent('BaseApp', () => BaseApp);
+AppRegistry.registerComponent('BaseApp', () => RNGMapsExample);
