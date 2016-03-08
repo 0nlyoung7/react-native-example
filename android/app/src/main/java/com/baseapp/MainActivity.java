@@ -8,7 +8,7 @@ import com.rota.rngmaps.RNGMapsPackage;
 import java.util.Arrays;
 import java.util.List;
 
-public class MainActivity extends ReactActivity {
+    public class MainActivity extends ReactActivity {
 
     /**
      * Returns the name of the main component registered from JavaScript.

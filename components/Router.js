@@ -19,6 +19,7 @@ var FormExample = require('./layout/Form');
 var ProfileExample = require('./layout/Profile');
 var ListViewExample = require('./layout/ListView');
 var GridViewExample = require('./layout/GridView');
+var SwiperExample = require('./layout/Swiper');
 var ReactNativeModalBox = require('./layout/ReactNativeModalBox');
 
 // Redux stuff is optional
@@ -116,7 +117,8 @@ export default class Example extends React.Component {
                             <Route name="tab4" schema="tab" title="MapView" component={MapViewExample} />
                         </Router>
                     </Route>
-                    <Route name="launch" header={Header} initial={true} component={Launch} wrapRouter={true} title="Launch" hideNavBar={true}/>
+                    <Route name="launch" component={Launch} wrapRouter={true} title="Launch" hideNavBar={true}/>
+                    <Route name="swiper" initial={true} component={SwiperExample} wrapRouter={true} title="Swiper" hideNavBar={true}/>
                 </Router>
             </Provider>
         );
