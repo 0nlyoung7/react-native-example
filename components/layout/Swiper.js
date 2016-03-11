@@ -4,11 +4,14 @@ var React = require('react-native');
 var Button = require('react-native-button');
 
 var {
-  AppRegistry,
+  AsyncStorage,
   StyleSheet,
   Text,
   View,
 } = React;
+
+var KEY_PREFIX = "@example";
+var INIT_KEY = KEY_PREFIX + ":key";
 
 var styles = StyleSheet.create({
   wrapper: {},
@@ -45,6 +48,12 @@ var styles = StyleSheet.create({
 })
 
 var SwiperExample = React.createClass({
+  _btnClick: function(){
+    var userData = {'initFlg':true};
+    AsyncStorage.setItem(INIT_KEY, JSON.stringify( userData ) ).then(() => {
+      Actions.launch();
+    }).done();
+  },
   render: function() {
     return (
       <Swiper style={styles.wrapper} showsButtons={false} loop={false} >
@@ -56,7 +65,7 @@ var SwiperExample = React.createClass({
         </View>
         <View style={styles.slide3}>
           <Text style={styles.text}>And simple</Text>
-          <Button style={styles.button} onPress={Actions.launch}>Start</Button>
+          <Button style={styles.button} onPress={this._btnClick}>Start</Button>
         </View>
       </Swiper>
     )

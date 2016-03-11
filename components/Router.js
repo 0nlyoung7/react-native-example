@@ -20,6 +20,7 @@ var ProfileExample = require('./layout/Profile');
 var ListViewExample = require('./layout/ListView');
 var GridViewExample = require('./layout/GridView');
 var SwiperExample = require('./layout/Swiper');
+var Splash = require('./layout/Splash');
 var ReactNativeModalBox = require('./layout/ReactNativeModalBox');
 
 // Redux stuff is optional
@@ -118,7 +119,8 @@ export default class Example extends React.Component {
                         </Router>
                     </Route>
                     <Route name="launch" component={Launch} wrapRouter={true} title="Launch" hideNavBar={true}/>
-                    <Route name="swiper" initial={true} component={SwiperExample} wrapRouter={true} title="Swiper" hideNavBar={true}/>
+                    <Route name="swiper" component={SwiperExample} wrapRouter={true} title="Swiper" hideNavBar={true}/>
+                    <Route name="splash" initial={true} title="splash" component={Splash} showNavigationBar={false}/>
                 </Router>
             </Provider>
         );
