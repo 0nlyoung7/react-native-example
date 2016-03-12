@@ -1,7 +1,8 @@
 'use strict';
 
 var React = require('react-native');
-var {AppRegistry, Navigator, StyleSheet,Text,View} = React;
+var qs = require('qs');
+var {AppRegistry, Navigator, StyleSheet,Text,View, Linking} = React;
 var Launch = require('./layout/Launch');
 var Register = require('./layout/Register');
 var Login = require('./layout/Login');
@@ -70,8 +71,24 @@ class Header extends React.Component {
 }
 
 export default class Example extends React.Component {
+    componentDidMount() {
+        Linking.addEventListener('url', this._handleOpenURL);
+    }
+    componentWillUnmount() {
+        Linking.removeEventListener('url', this._handleOpenURL);
+    }
+    _handleOpenURL(event) {
+        var url = event.url.replace('myrnexample://', '').split('?');
+        var path = url[0];
+        var params = url[1] ? qs.parse(url[1]) : null;
+        // qs has some issues with the __proto__ prop and adds it to the params
+        // we just remove it again
+        delete params.__proto__;
+
+        console.log(  path );
+        console.log(  params );
+    }
     render() {
-        // Provider is optional (if you want to use redux)
         return (
             <Provider store={store}>
                 <Router hideNavBar={true} name="root">
