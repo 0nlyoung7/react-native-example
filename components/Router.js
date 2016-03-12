@@ -22,6 +22,7 @@ var ListViewExample = require('./layout/ListView');
 var GridViewExample = require('./layout/GridView');
 var SwiperExample = require('./layout/Swiper');
 var Splash = require('./layout/Splash');
+var Blank = require('./layout/Blank');
 var ReactNativeModalBox = require('./layout/ReactNativeModalBox');
 
 // Redux stuff is optional
@@ -70,25 +71,43 @@ class Header extends React.Component {
     }
 }
 
-export default class Example extends React.Component {
-    componentDidMount() {
+var Example = React.createClass({
+    getInitialState: function(){
+        return {
+          launchFromShare: false,
+          url:null
+        }
+    },
+    componentWillMount: function(){
         Linking.addEventListener('url', this._handleOpenURL);
-    }
-    componentWillUnmount() {
+    },
+    componentDidMount: function(){
+        var self = this;
+        setTimeout(function(){
+            if( self.state.launchFromShare ){
+                Actions.webview2({url:url});
+                self.setState({
+                  launchFromShare: false,
+                  url:null,
+                });
+            } else {
+                Actions.splash();
+            }
+        }, 200 )
+    },
+    componentWillUnmount: function(){
         Linking.removeEventListener('url', this._handleOpenURL);
-    }
-    _handleOpenURL(event) {
-        var url = event.url.replace('myrnexample://', '').split('?');
-        var path = url[0];
-        var params = url[1] ? qs.parse(url[1]) : null;
-        // qs has some issues with the __proto__ prop and adds it to the params
-        // we just remove it again
-        delete params.__proto__;
+    },
+    _handleOpenURL: function(event){
+        var url = event.url.replace('myrnexample://', '');
+        this.setState({
+            url:url,    
+            launchFromShare: true,
+        });
 
-        console.log(  path );
-        console.log(  params );
-    }
-    render() {
+        Actions.webview2({data:url});
+    },
+    render: function(){
         return (
             <Provider store={store}>
                 <Router hideNavBar={true} name="root">
@@ -137,9 +156,12 @@ export default class Example extends React.Component {
                     </Route>
                     <Route name="launch" component={Launch} wrapRouter={true} title="Launch" hideNavBar={true}/>
                     <Route name="swiper" component={SwiperExample} wrapRouter={true} title="Swiper" hideNavBar={true}/>
-                    <Route name="splash" initial={true} title="splash" component={Splash} showNavigationBar={false}/>
+                    <Route name="splash" title="splash" component={Splash} showNavigationBar={false} schema="withoutAnimation"/>
+                    <Route name="blank" initial={true} title="blank" component={Blank} showNavigationBar={false} schema="withoutAnimation"/>
                 </Router>
             </Provider>
         );
     }
-}
+})
+
+module.exports = Example;

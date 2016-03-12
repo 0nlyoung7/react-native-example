@@ -18,6 +18,8 @@
 {
   // here you must have to provide your app group id that you already created
   
+  NSLog(@" 111111 ");
+  
   inputItem = self.extensionContext.inputItems.firstObject;
   NSItemProvider *urlItemProvider = [[inputItem.userInfo valueForKey:NSExtensionItemAttachmentsKey] objectAtIndex:0];
   if ([urlItemProvider hasItemConformingToTypeIdentifier:(__bridge NSString *)kUTTypeURL])

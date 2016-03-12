@@ -55,6 +55,18 @@ var WebViewExample2 = React.createClass({
       this.refs.webviewbridge.sendToBridge("hahaha");
     }, 5000);
   },
+  getInitialState: function(){
+      return {
+        url:'http://www.naver.com'
+      }
+  },
+  componentWillMount: function(){
+    if( this.props.data ){
+      this.setState({
+        url:this.props.data,
+      });
+    }
+  },
   onBridgeMessage: function (message) {
     console.log(message);
   },
@@ -67,7 +79,7 @@ var WebViewExample2 = React.createClass({
           onBridgeMessage={this.onBridgeMessage}
           injectedJavaScript={injectScript}
           scalesPageToFit={true}
-          source={{uri:"http://m.blog.naver.com/kokji0/220209248359"}}/>
+          source={{uri:this.state.url}}/>
       </View>
     );
   }
