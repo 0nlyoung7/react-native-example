@@ -7,9 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Social/Social.h>
 
-@interface ShareViewController : UIViewController
+@interface ShareViewController : SLComposeServiceViewController
 {
   NSExtensionItem *inputItem;
+  NSURL *destinationURL;
+  NSUserDefaults *sharedUserDefaults;
 }
 @end
