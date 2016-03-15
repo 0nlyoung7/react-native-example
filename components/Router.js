@@ -23,6 +23,7 @@ var GridViewExample = require('./layout/GridView');
 var SwiperExample = require('./layout/Swiper');
 var Splash = require('./layout/Splash');
 var Blank = require('./layout/Blank');
+var SocialShareExample = require('./layout/SocialShareExample');
 var ReactNativeModalBox = require('./layout/ReactNativeModalBox');
 
 // Redux stuff is optional
@@ -135,6 +136,7 @@ var Example = React.createClass({
                     <Route name="listview" title="listview" component={ListViewExample} showNavigationBar={false}/>
                     <Route name="gridview" title="gridview" component={GridViewExample} showNavigationBar={false}/>
                     <Route name="calendarview" title="calendarview" component={CalendarExample} showNavigationBar={false}/>
+                    <Route name="socialview" title="socialview" component={SocialShareExample} showNavigationBar={false}/>
 
                     <Route name="tabbar">
                         <Router footer={TabBar} showNavigationBar={false}>
