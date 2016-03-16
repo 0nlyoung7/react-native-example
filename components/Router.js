@@ -26,6 +26,8 @@ var Blank = require('./layout/Blank');
 var SocialShareExample = require('./layout/SocialShareExample');
 var ReactNativeModalBox = require('./layout/ReactNativeModalBox');
 
+//import DBHelper from './libs/DBHelper'
+
 // Redux stuff is optional
 import { createStore } from 'redux'
 import { Provider, connect } from 'react-redux'
