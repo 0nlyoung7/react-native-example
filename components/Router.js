@@ -17,6 +17,7 @@ var CalendarExample = require('./layout/Calendar');
 var WebViewExample = require('./layout/WebView');
 var WebViewExample2 = require('./layout/WebView2');
 var FormExample = require('./layout/Form');
+var ModalForm = require('./layout/ModalForm');
 var ProfileExample = require('./layout/Profile');
 var ListViewExample = require('./layout/ListView');
 var GridViewExample = require('./layout/GridView');
@@ -26,7 +27,7 @@ var Blank = require('./layout/Blank');
 var SocialShareExample = require('./layout/SocialShareExample');
 var ReactNativeModalBox = require('./layout/ReactNativeModalBox');
 
-//import DBHelper from './libs/DBHelper'
+import DBHelper from './libs/DBHelper'
 
 // Redux stuff is optional
 import { createStore } from 'redux'
@@ -85,6 +86,8 @@ var Example = React.createClass({
         Linking.addEventListener('url', this._handleOpenURL);
     },
     componentDidMount: function(){
+        DBHelper.initDB();
+
         var self = this;
         setTimeout(function(){
             if( self.state.launchFromShare ){
@@ -134,6 +137,7 @@ var Example = React.createClass({
                     <Route name="webview" title="WebView" component={WebViewExample} showNavigationBar={false}/>
                     <Route name="webview2" title="WebView2" component={WebViewExample2} showNavigationBar={false}/>
                     <Route name="form" title="form" component={FormExample} showNavigationBar={false}/>
+                    <ModalForm name="modalform" title="form" wrapRouter={true}  />
                     <Route name="profile" title="profile" component={ProfileExample} showNavigationBar={false}/>
                     <Route name="listview" title="listview" component={ListViewExample} showNavigationBar={false}/>
                     <Route name="gridview" title="gridview" component={GridViewExample} showNavigationBar={false}/>

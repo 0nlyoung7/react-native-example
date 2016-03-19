@@ -66,5 +66,10 @@
 		<string>kakaotalk-4.5.0</string>
 		<string>kakaostory-2.9.0</string>
 	</array>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Ionicons.ttf</string>
+		<string>FontAwesome.ttf</string>
+	</array>
 </dict>
 </plist>

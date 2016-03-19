@@ -10,61 +10,99 @@ var database_size = 200000;
 var db;
 
 var tables = [
-{
-	name: 'TB_MESSAGE',
-	columns: [
-		{name: 'channel_id', type: 'text'},
-		{name: 'sender_id', type: 'text'},
-		{name: 'sender_name', type: 'text'},
-		{name: 'sender_image', type: 'text'},
-		{name: 'message',  type: 'text'},
-		{name: 'type', type: 'text'},
-		{name: 'time', type: 'integer'},
-		{name: 'bookmark_flag', type: 'text DEFAULT "N" '},
-		{name: 'owner_id', type: 'text'}
-	],
-	table_index : [{ type : '', name : 'IDX_TB_MESSAGE', columns : [ 'channel_id', 'owner_id' ] }]
-},
-{
-	name: 'TB_CHANNEL',
-	columns: [
-		{name: 'channel_id', type: 'text'},
-		{name: 'channel_name', type: 'text'},	  
-		{name: 'channel_users',  type: 'text'},
-		{name: 'channel_image', type: 'text DEFAULT "" '},
-  		{name: 'unread_count', type: 'integer'},
- 		{name: 'latest_message', type: 'text'},
-  		{name: 'channel_updated', type: 'integer'},
-  		{name: 'owner_id', type: 'text'}
-	],
-	table_index : [{ type : 'UNIQUE', name : 'IDX_U_TB_CHANNEL', columns : [ 'channel_id', 'owner_id' ] }, { type : '', name : 'IDX_TB_CHANNEL', columns : [ 'owner_id' ] }]
-}
+	{
+		name: 'TB_POST',
+		columns: [
+			{name: 'post_id', type: 'text'},
+			{name: 'forder_id', type: 'text'},
+			{name: 'title', type: 'text'},
+			{name: 'tag', type: 'text'},
+			{name: 'message', type: 'text'},
+			{name: 'thumbnail', type: 'text'},
+			{name: 'url',  type: 'text'},
+			{name: 'type', type: 'text'},
+			{name: 'map_url',  type: 'text'},
+			{name: 'lat', type: 'integer'},
+			{name: 'lon', type: 'integer'},
+			{name: 'created', type: 'integer'},
+			{name: 'updated', type: 'integer'},
+			{name: 'owner_id', type: 'text'}
+		],
+		table_index : [{ type : '', name : 'IDX_TB_POST', columns : [ 'post_id', 'owner_id' ] }]
+	},
+	{
+		name: 'TB_FOLDER',
+		columns: [
+			{name: 'forder_id', type: 'text'},
+			{name: 'name', type: 'text'},
+			{name: 'tag', type: 'text'},
+			{name: 'message', type: 'text'},
+			{name: 'type', type: 'text'},
+			{name: 'start',  type: 'text'},
+			{name: 'end',  type: 'text'},
+			{name: 'lat', type: 'integer'},
+			{name: 'lon', type: 'integer'},
+			{name: 'created', type: 'integer'},
+			{name: 'updated', type: 'integer'},
+			{name: 'owner_id', type: 'text'}
+		],
+		table_index : [{ type : '', name : 'IDX_TB_FOLDER', columns : [ 'forder_id', 'owner_id' ] }]
+	},
 ];
 
-SQLite.openDatabase(database_name, database_version, database_displayname, database_size).then((DB) => {
-	db = DB;
-	console.log("===== this is db success");
-	//that.state.progress.push("Database OPEN");
-	//that.setState(that.state);
-	initDatabase(DB);
-}).catch((error) => {
-	console.log("===== this is db error");
-	console.log(error);
-});
 
+var initDB = function(resetFlag){
+	resetFlag = true;
 
-var initDatabase = function(db){
+	SQLite.openDatabase(database_name, database_version, database_displayname, database_size).then((DB) => {
+		db = DB;
+
+		if(resetFlag){
+			db.transaction(dropTables).then((result) => {
+				console.log(" dropDatabase (success) : ");
+				console.log(result);
+
+				create();
+			}).catch((error) =>{
+				console.log(" dropDatabase (error) : ");
+				console.log(error);
+			});
+		} else {
+			create();
+		}
+	}).catch((error) => {
+		console.log("===== this is db error");
+		console.log(error);
+	});
 
 	console.log("===== trying to init database");
 
-	db.transaction(createTables).then((result) => {
-		console.log(" initDatabase (success) : ");
-		console.log(result);
-	}).catch((error) =>{
-		console.log(" initDatabase (error) : ");
-		console.log(error);
-	});
+	var create = function(){
+		db.transaction(createTables).then((result) => {
+			console.log(" initDatabase (success) : ");
+			console.log(result);
+		}).catch((error) =>{
+			console.log(" initDatabase (error) : ");
+			console.log(error);
+		});
+	}
 }
+
+var openDB = function(cb){
+
+	if( !db ){
+		SQLite.openDatabase(database_name, database_version, database_displayname, database_size).then((DB) => {
+			db = DB;
+			cb(db);
+		}).catch((error) => {
+			console.log("===== this is db error");
+			console.log(error);
+		});
+	} else {
+		cb(db);
+	}
+}
+
 
 var createTables= function(tx){
 
@@ -72,7 +110,7 @@ var createTables= function(tx){
 	
 	for( var inx = 0 ; inx < tables.length ; inx++ ){
 		var query;
-		var table = tables[0];
+		var table = tables[inx];
  		var columns = [];
 
       	for( var key in table.columns) {
@@ -88,11 +126,42 @@ var createTables= function(tx){
 			console.log(" createDatabase (error) : ");
 			console.log(error);
 		});
+
+		// TABLE info에 index정보가 있다면, index를 생성
+		if( table.table_index != undefined ){
+			for( var key in table.table_index ){
+				var tableInx = table.table_index[key];
+				var query2 = 'CREATE '+ tableInx.type +' INDEX IF NOT EXISTS ' + tableInx.name +' ON ' +table.name + ' (' + tableInx.columns.join(',') + ')';
+				tx.executeSql(query2).catch((error) => {
+					console.log(" createDatabase (error) : ");
+					console.log(error);
+				});
+			}
+		}
+	}
+}
+
+var dropTables= function(tx){
+
+	console.log( "drop Tables;");
+	
+	for( var inx = 0 ; inx < tables.length ; inx++ ){
+		var query;
+		var table = tables[inx];
+		query = 'DROP TABLE IF EXISTS ' + table.name;
+
+		console.log( query );
+
+		tx.executeSql(query).catch((error) => {
+			console.log(" dropDatabase (error) : ");
+			console.log(error);
+		});
 	}
 
 }
 
 module.exports = {
-	initDatabase : initDatabase,
-	createTables : createTables
+	initDB : initDB,
+	createTables : createTables,
+	openDB : openDB
 }

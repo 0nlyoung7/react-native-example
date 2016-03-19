@@ -10,6 +10,10 @@ var {
 } = React;
 
 var GiftedListView = require('react-native-gifted-listview');
+var Icon = require('react-native-vector-icons/FontAwesome');
+var Actions = require('react-native-router-flux').Actions;
+
+import ActionButton from 'react-native-action-button';
 
 var rows = [];
 
@@ -29,6 +33,9 @@ var ListViewExample = React.createClass({
       trueSwitchIsOn: true,
       falseSwitchIsOn: false,
     };
+  },
+  get : function(){
+
   },
   _onFetch: function(page = 1, callback, options) {
     setTimeout(() => {
@@ -103,6 +110,10 @@ var ListViewExample = React.createClass({
             }}
           />
         </View>
+        <ActionButton 
+           buttonColor="rgba(231,76,60,1)" 
+           onPress={ Actions.modalform } 
+        />
       </View>
     );
   }
@@ -175,6 +186,11 @@ var styles = StyleSheet.create({
     fontSize: 13,
     width: 30,
     textAlign : 'right',
+  },
+  actionButtonIcon: {
+    fontSize: 20,
+    height: 22,
+    color: 'white',
   },
 });
 
