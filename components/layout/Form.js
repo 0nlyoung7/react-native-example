@@ -11,7 +11,6 @@ var {
 var HashTagInput = require( '../libs/HashTagInput' );
 
 var FormExample2 = React.createClass({
-
   getDefaultProps: function () {
     return {
       date: new Date(),

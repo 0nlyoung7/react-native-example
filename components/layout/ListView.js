@@ -12,20 +12,9 @@ var {
 var GiftedListView = require('react-native-gifted-listview');
 var Icon = require('react-native-vector-icons/FontAwesome');
 var Actions = require('react-native-router-flux').Actions;
+var FolderStore = require('../stores/FolderStore' );
 
 import ActionButton from 'react-native-action-button';
-
-var rows = [];
-
-rows.push(
-  { 
-    id: 'id',
-    picture: "https://scontent.xx.fbcdn.net/hprofile-xat1/v/t1.0-1/p320x320/12027641_10156169780310372_5819557272906950779_n.jpg?oh=832fb4926c959819d9a75df88d6fe5e3&oe=57609F35",
-    name: '#Seoul #Chicken #Hamburger #Stake',
-    text: 'message',
-    date: '123'
-  }
-);
 
 var ListViewExample = React.createClass({
   getInitialState: function() {
@@ -38,14 +27,15 @@ var ListViewExample = React.createClass({
 
   },
   _onFetch: function(page = 1, callback, options) {
-    setTimeout(() => {
+
+    FolderStore.select( function(rows){
       callback(rows);
-    }, 1000); // simulating network fetching
+    });
   },
   _renderRowView: function(rowData) {
-    var person = rowData;
+    var row = rowData;
 
-      return (
+    return (
       <TouchableHighlight 
           style={styles.container} 
           underlayColor='#c8c7cc'
@@ -54,10 +44,10 @@ var ListViewExample = React.createClass({
           <View style={ styles.row }>
             <View style={ styles.textContainer }>
               <Text style={ styles.name } numberOfLines={ 1 }>
-                { person.name }
+                { row.name }
               </Text>
               <Text style={ styles.message } numberOfLines={ 1 }>
-                { person.text }
+                { row.message }
               </Text>
               <View style={ styles.countWrapB } >
                 <Text style={ styles.countB} numberOfLines={ 1 }>
@@ -72,6 +62,15 @@ var ListViewExample = React.createClass({
           <View style={ styles.cellBorder } />
         </View>
       </TouchableHighlight>
+    );
+  },
+  _renderEmptyView: function(refreshCallback){
+    return (
+      <View style={styles.itemWrapper}>
+        <Text style={{alignSelf: 'center'}}>
+          There is no content
+        </Text>
+      </View>
     );
   },
   render: function() {
@@ -103,7 +102,7 @@ var ListViewExample = React.createClass({
                 backgroundColor: '#eee',
               },
             }}
-
+            emptyView={this._renderEmptyView}
             PullToRefreshViewAndroidProps={{
               colors: ['#ff0000', '#00ff00', '#0000ff'],
               progressBackgroundColor: '#c8c7cc',

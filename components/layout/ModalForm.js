@@ -12,7 +12,7 @@ var {
 } = React;
 
 
-import {Router, Route, Schema, Animations, TabBar} from 'react-native-router-flux'
+import {Router, Route, Schema, Animations, TabBar, Actions} from 'react-native-router-flux'
 
 var HashTagInput = require( '../libs/HashTagInput' );
 var FormExample2 = require( './Form' );
@@ -25,15 +25,20 @@ class ModalFormExample extends Route {
 }
 
 ModalFormExample.defaultProps = {
+  onLeft: function(){
+    Actions.pop();
+  },
+  leftTitle: "Close",
+  onRight: function(){
 
-      onRight: function(){
-        console.log('onRight 2222');
-        FolderStore.save(function(result){
-          console.log( result );
-        });
-      },
-      rightTitle: "Save",
-      component: FormExample2
+    var data = {id:'1',name:'name',message:'message',userId:'user01'};
+    
+    FolderStore.save( data, function(result){
+      console.log( result );
+    });
+  },
+  rightTitle: "Save",
+  component: FormExample2
 }
 
 var styles = StyleSheet.create({
