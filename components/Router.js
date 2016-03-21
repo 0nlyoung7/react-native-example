@@ -127,7 +127,7 @@ var Example = React.createClass({
                     <Route name="home" component={Home} title="Replace" type="replace"/>
                     <Route name="login" schema="modal">
                         <Router name="loginRouter">
-                            <Route name="loginModal" component={Login} schema="modal"/>
+                            <Route name="loginModal" component={Login} hideNavBar={true} schema="modal"/>
                             <Route name="loginModal2" hideNavBar={true} component={Login2} title="Login2"/>
                         </Router>
                     </Route>
@@ -139,7 +139,7 @@ var Example = React.createClass({
                     <Route name="form" title="form" component={FormExample} showNavigationBar={false}/>
                     <ModalForm name="modalform" title="form" wrapRouter={true}  />
                     <Route name="profile" title="profile" component={ProfileExample} showNavigationBar={false}/>
-                    <Route name="listview" title="listview" component={ListViewExample} showNavigationBar={false}/>
+                    <Route name="listview" title="listview" wrapRouter={true} component={ListViewExample}/>
                     <Route name="gridview" title="gridview" component={GridViewExample} showNavigationBar={false}/>
                     <Route name="calendarview" title="calendarview" component={CalendarExample} showNavigationBar={false}/>
                     <Route name="socialview" title="socialview" component={SocialShareExample} showNavigationBar={false}/>

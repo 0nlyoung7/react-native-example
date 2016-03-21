@@ -76,7 +76,6 @@ var ListViewExample = React.createClass({
   render: function() {
     return (
       <View style={styles.container}>
-        <View style={styles.navBar} />
         <View>
           <View style={styles.itemWrapper}>
             <View style={styles.itemValueWrapperR}>
@@ -122,6 +121,7 @@ var styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#FFF',
+    marginTop: 64,
   },
   navBar: {
     height: 64,
