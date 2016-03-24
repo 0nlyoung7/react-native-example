@@ -37,8 +37,8 @@ var ListViewExample = React.createClass({
 
     return (
       <TouchableHighlight 
-          style={styles.container} 
-          underlayColor='#c8c7cc'
+        style={styles.container} 
+        underlayColor='#c8c7cc'
       >  
         <View>
           <View style={ styles.row }>
@@ -109,8 +109,8 @@ var ListViewExample = React.createClass({
           />
         </View>
         <ActionButton 
-           buttonColor="rgba(231,76,60,1)" 
-           onPress={ Actions.modalform } 
+          buttonColor="rgba(231,76,60,1)" 
+          onPress={ Actions.modalform } 
         />
       </View>
     );

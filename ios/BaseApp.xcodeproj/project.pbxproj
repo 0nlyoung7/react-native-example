@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -35,6 +36,9 @@
 		1A35486D1C92C30D00A0FC45 /* ShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A35486C1C92C30D00A0FC45 /* ShareViewController.m */; };
 		1A3548701C92C30D00A0FC45 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A35486E1C92C30D00A0FC45 /* MainInterface.storyboard */; };
 		1A3548741C92C30D00A0FC45 /* BaseShare.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 1A3548691C92C30D00A0FC45 /* BaseShare.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		1A374AF51CA2B89E00F190D8 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A374AF41CA2B89E00F190D8 /* FBSDKLoginKit.framework */; };
+		1A374AF71CA2B9C500F190D8 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A374AF61CA2B9C500F190D8 /* FBSDKCoreKit.framework */; };
+		1A374AFA1CA2BB4000F190D8 /* SocialLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A374AF91CA2BB4000F190D8 /* SocialLogin.m */; };
 		1A932B831C982DF700F60224 /* KakaoOpenSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A932B821C982DF700F60224 /* KakaoOpenSDK.framework */; };
 		3396B6B0F9C748198B9AD0E9 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 91E6AF1BC87D42AC84502A33 /* MaterialIcons.ttf */; };
 		446F6264E1B147C781026255 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 412CB0983B1D499AAB420E47 /* FontAwesome.ttf */; };
@@ -210,6 +214,10 @@
 		1A35486C1C92C30D00A0FC45 /* ShareViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShareViewController.m; sourceTree = "<group>"; };
 		1A35486F1C92C30D00A0FC45 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		1A3548711C92C30D00A0FC45 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1A374AF41CA2B89E00F190D8 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
+		1A374AF61CA2B9C500F190D8 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		1A374AF81CA2BB1C00F190D8 /* SocialLogin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SocialLogin.h; sourceTree = "<group>"; };
+		1A374AF91CA2BB4000F190D8 /* SocialLogin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocialLogin.m; sourceTree = "<group>"; };
 		1A92010A1C9387CE002D4599 /* BaseShare.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = BaseShare.entitlements; sourceTree = "<group>"; };
 		1A932B821C982DF700F60224 /* KakaoOpenSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KakaoOpenSDK.framework; sourceTree = "<group>"; };
 		1ABE988A1C937FBB00E94AEA /* BaseApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = BaseApp.entitlements; path = BaseApp/BaseApp.entitlements; sourceTree = "<group>"; };
@@ -239,6 +247,7 @@
 			files = (
 				1A16B43F1C9BEDA8006AF50C /* libSQLite.a in Frameworks */,
 				1A16B4221C9BECE3006AF50C /* libsqlite3.dylib in Frameworks */,
+				1A374AF71CA2B9C500F190D8 /* FBSDKCoreKit.framework in Frameworks */,
 				1A23019A1C82A5830043597D /* libReact-Native-Webview-Bridge.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
@@ -251,6 +260,7 @@
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
+				1A374AF51CA2B89E00F190D8 /* FBSDKLoginKit.framework in Frameworks */,
 				CEB1A1DDB5B141BA8C24A583 /* libRNVectorIcons.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -351,6 +361,8 @@
 				13B07FB71A68108700A75B9A /* main.m */,
 				1A20AFD01C98204A00093774 /* SocialShare.h */,
 				1A20AFDC1C98209500093774 /* SocialShare.m */,
+				1A374AF81CA2BB1C00F190D8 /* SocialLogin.h */,
+				1A374AF91CA2BB4000F190D8 /* SocialLogin.m */,
 			);
 			name = BaseApp;
 			sourceTree = "<group>";
@@ -476,7 +488,9 @@
 				00E356EF1AD99517003FC87E /* BaseAppTests */,
 				1A35486A1C92C30D00A0FC45 /* BaseShare */,
 				83CBBA001A601CBA00E9B192 /* Products */,
+				1A374AF41CA2B89E00F190D8 /* FBSDKLoginKit.framework */,
 				1A932B821C982DF700F60224 /* KakaoOpenSDK.framework */,
+				1A374AF61CA2B9C500F190D8 /* FBSDKCoreKit.framework */,
 				678D495BAA534D73B091D212 /* Resources */,
 			);
 			indentWidth = 2;
@@ -824,6 +838,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1A374AFA1CA2BB4000F190D8 /* SocialLogin.m in Sources */,
 				1A20AFDD1C98209500093774 /* SocialShare.m in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,

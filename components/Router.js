@@ -7,6 +7,7 @@ var Launch = require('./layout/Launch');
 var Register = require('./layout/Register');
 var Login = require('./layout/Login');
 var Login2 = require('./layout/Login2');
+var SocialLoginExample = require('./layout/SocialLoginExample');
 var RNRF = require('react-native-router-flux');
 var {Route, Schema, Animations, Actions, TabBar} = RNRF;
 var Error = require('./layout/Error');
@@ -127,10 +128,12 @@ var Example = React.createClass({
                     <Route name="home" component={Home} title="Replace" type="replace"/>
                     <Route name="login" schema="modal">
                         <Router name="loginRouter">
-                            <Route name="loginModal" component={Login} hideNavBar={true} schema="modal"/>
+                            <Route name="loginModal" hideNavBar={true} component={Login}  schema="modal"/>
                             <Route name="loginModal2" hideNavBar={true} component={Login2} title="Login2"/>
+
                         </Router>
                     </Route>
+                    <Route name="socialLogin" hideNavBar={true} component={SocialLoginExample} title="SocialLogin"/>
                     <Route name="register2" component={Register} title="Register2"  schema="withoutAnimation"/>
                     <Route name="error" type="modal" component={Error}/>
                     <Route name="modalBox" type="modal" component={ReactNativeModalBox}/>

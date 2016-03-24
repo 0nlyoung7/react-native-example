@@ -2,13 +2,13 @@
 
 var React = require('react-native');
 var {
-  View,
-  Text,
-  TextInput,
-  TouchableHighlight,
-  Switch,
-  StyleSheet,
-  AsyncStorage
+    View,
+    Text,
+    TextInput,
+    TouchableHighlight,
+    Switch,
+    StyleSheet,
+    AsyncStorage
 } = React;
 
 var Button = require('react-native-button');
@@ -111,7 +111,5 @@ var styles = StyleSheet.create({
         backgroundColor: '#ffffff'
     },
 });
-
-
 
 module.exports = Login;
