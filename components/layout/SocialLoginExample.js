@@ -6,15 +6,15 @@ var {
   StyleSheet,
   Text,
   View,
-  TouchableHighlight,
-  AsyncStorage
+  TouchableHighlight
 } = React;
 
 var SocialLogin = require('NativeModules').SocialLogin;
 var Actions = require('react-native-router-flux').Actions;
+var SessionStore = require('../stores/SessionStore');
 
 var KEY_PREFIX = "@example";
-var USER_KEY = KEY_PREFIX + ":user";
+var USER_KEY = KEY_PREFIX + ":session";
 
 var SocialLoginExample = React.createClass({
   getInitialState() {
@@ -26,15 +26,15 @@ var SocialLoginExample = React.createClass({
 
   login() {
     SocialLogin.loginWithFacebook((error, info) => {
-
+      var self = this;
       if (error) {
-        this.setState({result: error});
+        self.setState({result: error});
       } else {
         var ud = { 'id' : info.uid, 'email': info.email, 'image': info.image, 'name': info.name };
-        AsyncStorage.setItem(USER_KEY, JSON.stringify( ud ) ).then((userData) => {
-          this.setState({'alreadyLogined':true,'name':info.name});
+        SessionStore.save( ud, function(res){
+          self.setState({'alreadyLogined':true,'name':info.name});
           Actions.launch();
-        }).done();
+        });
       }
     });
   },

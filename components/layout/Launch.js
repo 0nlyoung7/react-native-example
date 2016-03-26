@@ -26,7 +26,6 @@ class Launch extends React.Component {
                 <Button onPress={Actions.tabbar}>Go to TabBar page</Button>
                 <Button onPress={Actions.form}>Go to Form page</Button>
                 <Button onPress={Actions.profile}>Go to Profile page</Button>
-                <Button onPress={Actions.listview}>Go to ListView page</Button>
                 <Button onPress={Actions.gridview}>Go to GridView page</Button>
                 <Button onPress={Actions.calendarview}>Go to CalendarView page</Button>
                 <Button onPress={Actions.socialview}>Go to SocialView page</Button>

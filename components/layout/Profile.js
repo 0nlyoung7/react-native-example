@@ -8,19 +8,55 @@ var {
   StyleSheet
 } = React;
 
-var ProfileExample = React.createClass({
-  render: function() {
+var Profile = React.createClass({
+  getDefaultProps() {
+    return {
+      customStyles: {},
+      name: 'User Name',
+      image: 'http://www.aba.805stats.com/img/default.jpg',
+      message: 'User Message'
+    };
+  },
+  propTypes: {
+    customStyles: React.PropTypes.object,
+    name: React.PropTypes.string,
+    image: React.PropTypes.string,
+    message: React.PropTypes.string,
+    onRefresh: React.PropTypes.func
+  },
+  getInitialState() {
+    var simage = this.props.image != undefined? this.props.image:this.getDefaultProps().image;
+    var sname = this.props.name != undefined? this.props.name:this.getDefaultProps().name;
+    var smessage = this.props.message != undefined? this.props.message:this.getDefaultProps().message;
+
+    return {
+      name: sname,
+      image: simage,
+      message: smessage
+    }
+  },
+  refresh: function() {
+    var simage = this.props.image != undefined? this.props.image:this.state.image;
+    var sname = this.props.name != undefined? this.props.name:this.state.name;
+    var smessage = this.props.message != undefined? this.props.message:this.state.message;
+    this.setState({
+      name: sname,
+      message: smessage,
+      image: simage
+    });
+  },
+  render() {
     return (
-      <View style={styles.container}>
-        <View style={styles.navBar} />
+      <View>
         <View>
           <View style={ styles.profileWrap }>
             <Image
-              source={ { uri: 'https://scontent.xx.fbcdn.net/hprofile-xat1/v/t1.0-1/p320x320/12027641_10156169780310372_5819557272906950779_n.jpg?oh=832fb4926c959819d9a75df88d6fe5e3&oe=57609F35' } }
+              defaultSource={require('../images/default_user.jpg')}
+              source={ { uri: this.state.image } }
               style={ styles.cellImage } />
             <View style={ styles.textContainer }>
               <Text style={ styles.name } numberOfLines={ 1 }>
-                Name
+                {this.state.name}
               </Text>
               <View style={ styles.countWrapT } >
                 <Text stlye={ styles.labelW }>
@@ -31,7 +67,7 @@ var ProfileExample = React.createClass({
                 </Text>
               </View>
               <Text style={ styles.message } numberOfLines={ 1 }>
-                Messages
+                {this.state.message}
               </Text>
               <View style={ styles.countWrapB } >
                 <Text stlye={ styles.labelWrap }>
@@ -54,14 +90,6 @@ var ProfileExample = React.createClass({
 });
 
 var styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#FFF',
-  },
-  navBar: {
-    height: 64,
-    backgroundColor: '#f8f8f8'
-  },
   profileWrap: {
     flex: 1,
     alignItems: 'center',
@@ -123,4 +151,4 @@ var styles = StyleSheet.create({
   }
 });
 
-module.exports = ProfileExample;
+module.exports = Profile;

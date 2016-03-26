@@ -5,7 +5,6 @@ var {
     View,
     Text,
     TextInput,
-    TouchableHighlight,
     Switch,
     StyleSheet,
     AsyncStorage

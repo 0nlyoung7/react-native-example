@@ -121,7 +121,7 @@ var Example = React.createClass({
                     <Schema name="modal" sceneConfig={Navigator.SceneConfigs.FloatFromBottom}/>
                     <Schema name="default" sceneConfig={Navigator.SceneConfigs.FloatFromRight}/>
                     <Schema name="withoutAnimation"/>
-                    <Schema name="tab" type="switch" icon={TabIcon} />
+                    <Schema name="tab" type="switch" icon={TabIcon}/>
 
                     <Route name="register" component={Register} title="Register"/>
                     <Route name="showActionSheet" type="actionSheet" title="What do you want to do?" options={['Delete', 'Save', 'Cancel']} cancelButtonIndex={2} destructiveButtonIndex={0}/>
@@ -142,26 +142,25 @@ var Example = React.createClass({
                     <Route name="form" title="form" component={FormExample} showNavigationBar={false}/>
                     <ModalForm name="modalform" title="form" wrapRouter={true}  />
                     <Route name="profile" title="profile" component={ProfileExample} showNavigationBar={false}/>
-                    <Route name="listview" title="listview" wrapRouter={true} component={ListViewExample}/>
                     <Route name="gridview" title="gridview" component={GridViewExample} showNavigationBar={false}/>
                     <Route name="calendarview" title="calendarview" component={CalendarExample} showNavigationBar={false}/>
                     <Route name="socialview" title="socialview" component={SocialShareExample} showNavigationBar={false}/>
 
                     <Route name="tabbar">
-                        <Router footer={TabBar} showNavigationBar={false}>
-                            <Route name="tab1" schema="tab" title="Tab #1" >
+                        <Router footer={TabBar} showNavigationBar={false} tabBarStyle={{backgroundColor: '#f2f2f2'}}>
+                            <Route name="tab1" schema="tab" title="Tab #1" initial={true}>
                                 <Router onPop={()=>{console.log("onPop is called!"); return true} }>
                                     <Route name="tab1_1" component={TabView} title="Tab #1_1" />
                                     <Route name="tab1_2" component={TabView} title="Tab #1_2" />
                                 </Router>
                             </Route>
-                            <Route name="tab2" schema="tab" title="Tab #2" hideNavBar={true} initial={true}>
+                            <Route name="tab2" schema="tab" title="Tab #2" >
                                 <Router onPop={()=>{console.log("onPop is called!"); return true} }>
                                     <Route name="tab2_1" component={TabView} title="Tab #2_1" />
                                     <Route name="tab2_2" component={TabView} title="Tab #2_2" />
                                 </Router>
                             </Route>
-                            <Route name="tab3" schema="tab" title="Tab #3" component={TabView} hideTabBar={true}/>
+                            <Route name="tab3" schema="tab" title="ListView" component={ListViewExample} />
                             <Route name="tab4" schema="tab" title="MapView" component={MapViewExample} />
                         </Router>
                     </Route>

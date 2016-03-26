@@ -14,9 +14,8 @@ var {
 
 import {Router, Route, Schema, Animations, TabBar, Actions} from 'react-native-router-flux'
 
-var HashTagInput = require( '../libs/HashTagInput' );
-var FormExample2 = require( './Form' );
 var FolderStore = require('../stores/FolderStore' );
+var FolderFormView = require( '../forms/FolderForm' );
 
 class ModalFormExample extends Route {
     className(){
@@ -38,7 +37,7 @@ ModalFormExample.defaultProps = {
     });
   },
   rightTitle: "Save",
-  component: FormExample2
+  component: FolderFormView
 }
 
 var styles = StyleSheet.create({

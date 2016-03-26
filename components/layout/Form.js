@@ -23,13 +23,10 @@ var FormExample2 = React.createClass({
       timeZoneOffsetInHours: this.props.timeZoneOffsetInHours,
     };
   },
-  onDateChange: function(date) {
-    this.setState({date: date});
-  },
   render: function() {
     return (
       <View style={styles.container}>
-        <View style={styles.loginContainer}>
+        <View style={styles.formContainer}>
           <TextInput
             style={styles.input}
             value={this.state.userId}
@@ -79,7 +76,7 @@ var styles = StyleSheet.create({
     alignItems: 'stretch',
     backgroundColor: 'white'
   },
-  loginContainer: {
+  formContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
@@ -130,15 +127,6 @@ var styles = StyleSheet.create({
     padding: 10,
     marginTop: 10,
     backgroundColor: '#4a8ec2'
-  },
-  label: {
-    width: 230,
-    flex: 1,
-    alignSelf: 'center',
-    textAlign: 'center',
-    fontSize: 20,
-    fontWeight: '600',
-    color: '#ffffff'
   }
 });
 

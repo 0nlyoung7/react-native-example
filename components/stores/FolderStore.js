@@ -9,7 +9,6 @@ var FolderStore = {
 			dataArr.push( data.message );
 			dataArr.push( data.userId );
 			db.executeSql('INSERT INTO TB_FOLDER (forder_id, name, message, owner_id) values ( ?, ?, ?, ? )', dataArr).then(() =>{
-				console.log({});
 				cb({});
 			}).catch((error) =>{
 				console.log("Received insert error: ", error);
@@ -20,7 +19,7 @@ var FolderStore = {
 	select : function(cb){
 		DBHelper.openDB( function(db){
 			db.executeSql('SELECT * FROM TB_FOLDER').then((results) =>{
-				console.log( results );
+				
 				if(results && results.length > 0 ) {
 					var folders = [];
 					var len = results[0].rows.length;

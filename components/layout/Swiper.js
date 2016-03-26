@@ -2,6 +2,7 @@ var Swiper = require('react-native-swiper');
 var Actions = require('react-native-router-flux').Actions;
 var React = require('react-native');
 var Button = require('react-native-button');
+var SessionStore = require( '../stores/SessionStore' );
 
 var {
   AsyncStorage,
@@ -12,7 +13,7 @@ var {
 
 var KEY_PREFIX = "@example";
 var INIT_KEY = KEY_PREFIX + ":key";
-var USER_KEY = KEY_PREFIX + ":user";
+var USER_KEY = KEY_PREFIX + ":session";
 
 var styles = StyleSheet.create({
   wrapper: {},
@@ -52,14 +53,15 @@ var SwiperExample = React.createClass({
   _btnClick: function(){
     var userData = {'initFlg':true};
     AsyncStorage.setItem(INIT_KEY, JSON.stringify( userData ) ).then(() => {
-     
-      AsyncStorage.getItem(USER_KEY).then((userData) => {
-        if(userData != null ){
+
+      SessionStore.get(function(session){
+        if(session != null ){
           Actions.launch();
         } else {
           Actions.socialLogin();
         }
-      }).done();
+      });
+
     }).done();
   },
   render: function() {

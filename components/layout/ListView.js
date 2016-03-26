@@ -13,6 +13,9 @@ var GiftedListView = require('react-native-gifted-listview');
 var Icon = require('react-native-vector-icons/FontAwesome');
 var Actions = require('react-native-router-flux').Actions;
 var FolderStore = require('../stores/FolderStore' );
+var SessionStore = require('../stores/SessionStore' );
+
+var ProfileView = require('./Profile');
 
 import ActionButton from 'react-native-action-button';
 
@@ -21,13 +24,24 @@ var ListViewExample = React.createClass({
     return {
       trueSwitchIsOn: true,
       falseSwitchIsOn: false,
+      name:'',
+      message:'',
+      image:''
     };
   },
-  get : function(){
+  componentDidMount: function() {
+    var self = this;
+    SessionStore.get(function(user){
+      self.setState({
+        name: user.name,
+        message: user.message,
+        image: user.image
+      });
 
+      self.refs.profileView.refresh();
+    });
   },
   _onFetch: function(page = 1, callback, options) {
-
     FolderStore.select( function(rows){
       callback(rows);
     });
@@ -76,6 +90,12 @@ var ListViewExample = React.createClass({
   render: function() {
     return (
       <View style={styles.container}>
+        <ProfileView
+          ref="profileView"
+          image={this.state.image}
+          name={this.state.name}
+          message={this.state.message}
+        />
         <View>
           <View style={styles.itemWrapper}>
             <View style={styles.itemValueWrapperR}>
@@ -88,7 +108,7 @@ var ListViewExample = React.createClass({
               </View>
             </View>
           </View>
-          <View style={ styles.cellBorder } />
+
           <GiftedListView
             rowView={this._renderRowView}
             onFetch={this._onFetch}
@@ -110,7 +130,8 @@ var ListViewExample = React.createClass({
         </View>
         <ActionButton 
           buttonColor="rgba(231,76,60,1)" 
-          onPress={ Actions.modalform } 
+          onPress={ Actions.modalform }
+          offsetY={60}
         />
       </View>
     );
