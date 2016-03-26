@@ -12,9 +12,15 @@ var {
 } = React;
 
 var HashTagInput = require( '../libs/HashTagInput' );
+var ForderStore = require( '../stores/FolderStore' );
+var SessionStore = require( '../stores/SessionStore' );
+
+var saveData = {'location':'Seoul', 'id': '1', 'uid':'uid'};
 
 var FormExample2 = React.createClass({
   getDefaultProps: function () {
+    var self = this;
+
     return {
       startDate: new Date(),
       endDate: new Date(),
@@ -22,7 +28,8 @@ var FormExample2 = React.createClass({
       location: '',
       tag: '',
       showDateStart : false,
-      showDateEnd : false
+      showDateEnd : false,
+      onSave( data, cb ){ cb({}); }
     };
   },
   getInitialState: function() {
@@ -36,25 +43,8 @@ var FormExample2 = React.createClass({
       tag: ''
     };
   },
-  onPressStartDate: function(date) {
-    if( this.state.showDateStart ){
-      this.setState({showDateStart: false});
-    } else {
-      this.setState({showDateStart: true});
-    }
-  },
-  onChangeStartDate: function(date) {
-    this.setState({startDate: date, startDateStr: yyyymmdd(date)});
-  },
-  onPressEndDate: function(date) {
-    if( this.state.showDateEnd ){
-      this.setState({showDateEnd: false});
-    } else {
-      this.setState({showDateEnd: true});
-    }
-  },
-  onChangeEndDate: function(date) {
-    this.setState({endDate:date, endDateStr: yyyymmdd(date)});
+  componentDidMount: function() {
+    this.props.onSave = this._save;
   },
   render: function() {
     return (
@@ -75,7 +65,7 @@ var FormExample2 = React.createClass({
             <View style={styles.itemWrapper}>
               <Text style={styles.itemLabel}>START</Text>
               <View style={styles.itemValueWrapperR}>
-                <TouchableHighlight style={styles.container} underlayColor='#c8c7cc' onPress={this.onPressStartDate}>  
+                <TouchableHighlight style={styles.container} underlayColor='#c8c7cc' onPress={this._onPressStartDate}>  
                   <Text>{this.state.startDateStr}</Text>
                 </TouchableHighlight>
               </View>
@@ -86,7 +76,7 @@ var FormExample2 = React.createClass({
             <View style={styles.itemWrapper}>
               <Text style={styles.itemLabel}>END</Text>
               <View style={styles.itemValueWrapperR}>
-                <TouchableHighlight style={styles.container} underlayColor='#c8c7cc' onPress={this.onPressStartDate}> 
+                <TouchableHighlight style={styles.container} underlayColor='#c8c7cc' onPress={this._onPressStartDate}> 
                   <Text>{this.state.endDateStr}</Text>
                 </TouchableHighlight>
               </View>
@@ -100,6 +90,28 @@ var FormExample2 = React.createClass({
       </View>
     );
   },
+ _onPressStartDate: function(date) {
+    if( this.state.showDateStart ){
+      this.setState({showDateStart: false});
+    } else {
+      this.setState({showDateStart: true});
+    }
+  },
+  _onChangeStartDate: function(date) {
+    this.setState({startDate: date, startDateStr: yyyymmdd(date)});
+    saveData.start = this.state.startDateStr;
+  },
+  _onPressEndDate: function(date) {
+    if( this.state.showDateEnd ){
+      this.setState({showDateEnd: false});
+    } else {
+      this.setState({showDateEnd: true});
+    }
+  },
+  _onChangeEndDate: function(date) {
+    this.setState({endDate:date, endDateStr: yyyymmdd(date)});
+    saveData.start = this.state.endDateStr;
+  },
   _renderStartDatePicker: function() {
     if( !this.state.showDateStart ){
       return null;
@@ -111,7 +123,7 @@ var FormExample2 = React.createClass({
         date={this.state.startDate}
         mode="date"
         timeZoneOffsetInMinutes={this.state.timeZoneOffsetInHours * 60}
-        onDateChange={this.onChangeStartDate}
+        onDateChange={this._onChangeStartDate}
       />
     );
   },
@@ -127,14 +139,17 @@ var FormExample2 = React.createClass({
         mode="date"
         style={{margin:10}}
         timeZoneOffsetInMinutes={this.state.timeZoneOffsetInHours * 60}
-        onDateChange={this.onChangeEndDate}
+        onDateChange={this._onChangeEndDate}
       />
     );
-  },
-  onPress: function() {
-    console.log(this.state.userId);
   }
 });
+
+FormExample2.onSave = function(cb){
+  ForderStore.save( saveData, function( result ){
+    cb( result );
+  });
+};
 
 var styles = StyleSheet.create({
   container: {

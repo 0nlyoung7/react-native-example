@@ -14,7 +14,6 @@ var {
 
 import {Router, Route, Schema, Animations, TabBar, Actions} from 'react-native-router-flux'
 
-var FolderStore = require('../stores/FolderStore' );
 var FolderFormView = require( '../forms/FolderForm' );
 
 class ModalFormExample extends Route {
@@ -30,9 +29,7 @@ ModalFormExample.defaultProps = {
   leftTitle: "Close",
   onRight: function(){
 
-    var data = {id:'1',name:'name',message:'message',userId:'user01'};
-    
-    FolderStore.save( data, function(result){
+    FolderFormView.onSave( function(result){
       console.log( result );
     });
   },

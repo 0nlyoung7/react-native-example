@@ -8,15 +8,18 @@ var {
 } = React;
 
 var SessionStore = {
+	user : {},
 	save : function(data, cb){
 		AsyncStorage.setItem(Constants.SESSION_KEY, JSON.stringify( data ) ).then((userData) => {
 			cb( userData );
 		}).done();
 	},
 	get : function(cb){
+		var self = this;
 		AsyncStorage.getItem(Constants.SESSION_KEY).then((userDataStr) => {
 			if( userDataStr ){
-				cb( JSON.parse(userDataStr) );
+				self.user = JSON.parse(userDataStr);
+				cb( this.user );
 			} else {
 				cb();
 			}

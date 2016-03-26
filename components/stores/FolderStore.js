@@ -3,17 +3,31 @@ var DBHelper = require( '../libs/DBHelper' );
 var FolderStore = {
 	save : function(data, cb){
 		DBHelper.openDB(function(db){
-			var dataArr = [];
-			dataArr.push( data.id );
-			dataArr.push( data.name );
-			dataArr.push( data.message );
-			dataArr.push( data.userId );
-			db.executeSql('INSERT INTO TB_FOLDER (forder_id, name, message, owner_id) values ( ?, ?, ?, ? )', dataArr).then(() =>{
-				cb({});
-			}).catch((error) =>{
-				console.log("Received insert error: ", error);
-				cb(null);
-			});
+			
+			if( data.uid == undefined || data.location == undefined ){
+				cb('required');
+			} else {
+				var dataArr = [];
+				dataArr.push( data.id );
+				dataArr.push( data.location != undefined ? data.location : '' );
+				dataArr.push( data.tag != undefined ? data.tag : null );
+				dataArr.push( data.type != undefined ? data.type : null );
+				dataArr.push( data.start != undefined ? data.start : null );
+				dataArr.push( data.end != undefined ? data.end : null );
+				dataArr.push( data.created != undefined ? data.created : Date.now() );
+				dataArr.push( data.updated != undefined ? data.updated : Date.now() );
+				dataArr.push( data.uid  );
+
+				var sql = "INSERT INTO TB_FOLDER (forder_id, location, tag, type, start, end, created, updated, owner_id)";
+				sql += " values ( ?, ?, ?, ?, ?, ?, ?, ?, ? )";
+
+				db.executeSql(sql, dataArr).then(() =>{
+					cb({});
+				}).catch((error) =>{
+					console.log("Received insert error: ", error);
+					cb(null);
+				});
+			}
     	});
 	},
 	select : function(cb){

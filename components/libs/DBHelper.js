@@ -34,9 +34,8 @@ var tables = [
 		name: 'TB_FOLDER',
 		columns: [
 			{name: 'forder_id', type: 'text'},
-			{name: 'name', type: 'text'},
+			{name: 'location', type: 'text'},
 			{name: 'tag', type: 'text'},
-			{name: 'message', type: 'text'},
 			{name: 'type', type: 'text'},
 			{name: 'start',  type: 'text'},
 			{name: 'end',  type: 'text'},

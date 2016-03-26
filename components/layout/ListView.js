@@ -58,7 +58,7 @@ var ListViewExample = React.createClass({
           <View style={ styles.row }>
             <View style={ styles.textContainer }>
               <Text style={ styles.name } numberOfLines={ 1 }>
-                { row.name }
+                { row.location }
               </Text>
               <Text style={ styles.message } numberOfLines={ 1 }>
                 { row.message }
