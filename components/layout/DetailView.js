@@ -9,11 +9,8 @@ var {
   TouchableHighlight
 } = React;
 
-var GiftedListView = require('react-native-gifted-listview');
 var Icon = require('react-native-vector-icons/FontAwesome');
 var Actions = require('react-native-router-flux').Actions;
-var FolderStore = require('../stores/FolderStore' );
-var SessionStore = require('../stores/SessionStore' );
 
 var ProfileView = require('./Profile');
 
@@ -22,32 +19,18 @@ import ActionButton from 'react-native-action-button';
 var ListViewExample = React.createClass({
   getInitialState: function() {
     return {
-      trueSwitchIsOn: true,
-      falseSwitchIsOn: false,
       name:'',
       message:'',
       image:''
     };
   },
   componentDidMount: function() {
-    var self = this;
-    SessionStore.get(function(user){
-      self.setState({
-        name: user.name,
-        message: user.message,
-        image: user.image
-      });
-
-      self.refs.profileView.refresh();
-    });
-  },
-  _onFetch: function(page = 1, callback, options) {
-    FolderStore.select( function(rows){
-      callback(rows);
-    });
-  },
-  _detailView: function( row ){
-    Actions.detailView( {"data":JSON.stringify(row)})
+    var param = this.props.data;
+    console.log( param );
+    if ( param ){
+      param = JSON.parse( param );
+      this.setState({location: param.location, tag: param.tag});
+    }
   },
   _renderRowView: function(rowData) {
     var row = rowData;
@@ -55,16 +38,15 @@ var ListViewExample = React.createClass({
     return (
       <TouchableHighlight 
         underlayColor='#c8c7cc'
-        onPress={() => this._detailView(rowData)}
       >  
         <View>
-          <View style={ styles.row }>
+          <View style={ styles.row } >
             <View style={ styles.textContainer }>
               <Text style={ styles.name } numberOfLines={ 1 }>
-                { row.location }
+                { this.state.location }
               </Text>
-              <Text style={ styles.message } numberOfLines={ 1 }>
-                { row.message }
+              <Text style={ styles.tag } numberOfLines={ 1 }>
+                { this.state.tag }
               </Text>
               <View style={ styles.countWrapB } >
                 <Text style={ styles.countB} numberOfLines={ 1 }>
@@ -81,49 +63,10 @@ var ListViewExample = React.createClass({
       </TouchableHighlight>
     );
   },
-  _renderEmptyView: function(refreshCallback){
-    return (
-      <View style={styles.itemWrapper}>
-        <Text style={{alignSelf: 'center'}}>
-          There is no content
-        </Text>
-      </View>
-    );
-  },
   render: function() {
     return (
       <View style={styles.container}>
-        <ProfileView
-          ref="profileView"
-          image={this.state.image}
-          name={this.state.name}
-          message={this.state.message}
-        />
-        <View>
-          <GiftedListView
-            rowView={this._renderRowView}
-            onFetch={this._onFetch}
-            firstLoader={true} // display a loader for the first fetching
-            pagination={true} // enable infinite scrolling using touch to load more
-            refreshable={true} // enable pull-to-refresh for iOS and touch-to-refresh for Android
-            withSections={false} // enable sections
-            customStyles={{
-              refreshableView: {
-                backgroundColor: '#eee',
-              },
-            }}
-            emptyView={this._renderEmptyView}
-            PullToRefreshViewAndroidProps={{
-              colors: ['#ff0000', '#00ff00', '#0000ff'],
-              progressBackgroundColor: '#c8c7cc',
-            }}
-          />
-        </View>
-        <ActionButton 
-          buttonColor="rgba(231,76,60,1)" 
-          onPress={ Actions.modalform }
-          offsetY={60}
-        />
+        {this._renderRowView()}
       </View>
     );
   }
@@ -168,7 +111,7 @@ var styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 2
   },
-  message: {
+  tag: {
     marginTop:20,
     color: '#999999',
     fontSize: 12,

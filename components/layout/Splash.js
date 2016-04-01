@@ -1,6 +1,8 @@
 var Actions = require('react-native-router-flux').Actions;
 var React = require('react-native');
 var Button = require('react-native-button');
+var SessionStore = require('../stores/SessionStore' );
+
 
 var {
   AsyncStorage,
@@ -37,7 +39,16 @@ var Splash = React.createClass({
         }else{
           var ud = JSON.parse( userData );
           if( ud.initFlg ){
-            Actions.launch();
+            SessionStore.get(function(user){
+
+              if( !user ){
+                Actions.socialLogin();
+              } else if( user.registered ){
+                Actions.launch();      
+              } else {
+                Actions.register();
+              }
+            });
           } else {
             Actions.swiper();            
           }        

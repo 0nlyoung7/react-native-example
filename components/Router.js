@@ -21,6 +21,7 @@ var FormExample = require('./layout/Form');
 var ModalForm = require('./layout/ModalForm');
 var ProfileExample = require('./layout/Profile');
 var ListViewExample = require('./layout/ListView');
+var DetailViewExample = require('./layout/DetailView');
 var GridViewExample = require('./layout/GridView');
 var SwiperExample = require('./layout/Swiper');
 var Splash = require('./layout/Splash');
@@ -130,7 +131,6 @@ var Example = React.createClass({
                         <Router name="loginRouter">
                             <Route name="loginModal" hideNavBar={true} component={Login}  schema="modal"/>
                             <Route name="loginModal2" hideNavBar={true} component={Login2} title="Login2"/>
-
                         </Router>
                     </Route>
                     <Route name="socialLogin" hideNavBar={true} component={SocialLoginExample} title="SocialLogin"/>
@@ -164,6 +164,7 @@ var Example = React.createClass({
                             <Route name="tab4" schema="tab" title="MapView" component={MapViewExample} />
                         </Router>
                     </Route>
+                    <Route name="detailView" type="push" title="DetailView" wrapRouter={true} component={DetailViewExample} />
                     <Route name="launch" component={Launch} wrapRouter={true} title="Launch" hideNavBar={true}/>
                     <Route name="swiper" component={SwiperExample} wrapRouter={true} title="Swiper" hideNavBar={true}/>
                     <Route name="splash" title="splash" component={Splash} showNavigationBar={false} schema="withoutAnimation"/>

@@ -51,7 +51,7 @@ var tables = [
 
 
 var initDB = function(resetFlag){
-	resetFlag = true;
+	//resetFlag = true;
 
 	SQLite.openDatabase(database_name, database_version, database_displayname, database_size).then((DB) => {
 		db = DB;

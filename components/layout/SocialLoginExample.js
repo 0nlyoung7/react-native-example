@@ -30,10 +30,11 @@ var SocialLoginExample = React.createClass({
       if (error) {
         self.setState({result: error});
       } else {
-        var ud = { 'id' : info.uid, 'email': info.email, 'image': info.image, 'name': info.name };
+        var ud = { 'id' : info.id, 'email': info.email, 'image': info.image, 'name': info.name };
+
         SessionStore.save( ud, function(res){
           self.setState({'alreadyLogined':true,'name':info.name});
-          Actions.launch();
+          Actions.register();
         });
       }
     });
