@@ -70,7 +70,7 @@ var ListViewExample = React.createClass({
                 <Text style={ styles.countB} numberOfLines={ 1 }>
                   2
                 </Text>
-                <Text stlye={ styles.labelWrap }>
+                <Text style={ styles.labelWrap }>
                   Pin
                 </Text>
               </View>
@@ -158,9 +158,6 @@ var styles = StyleSheet.create({
   },
   labelWrap: {
     color: '#999999',
-    fontSize: 11,
-    borderColor: 'green',
-    borderWidth: 1,
   },
   name: {
     flex: 1,

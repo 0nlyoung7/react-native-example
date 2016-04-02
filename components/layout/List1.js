@@ -9,33 +9,13 @@ var {
   TouchableHighlight
 } = React;
 
-var Icon = require('react-native-vector-icons/FontAwesome');
 var GiftedListView = require('react-native-gifted-listview');
-var Actions = require('react-native-router-flux').Actions;
 
-var List1 = require('./List1');
-var List2 = require('./List2');
+var List1 = React.createClass({
 
-import ActionButton from 'react-native-action-button';
+  _renderRowView: function(rowData) {
+    var row = rowData;
 
-var ListViewExample = React.createClass({
-  getInitialState: function() {
-    return {
-      name:'',
-      message:'',
-      image:'',
-      tabInx:0
-    };
-  },
-  componentDidMount: function() {
-    var param = this.props.data;
-    console.log( param );
-    if ( param ){
-      param = JSON.parse( param );
-      this.setState({location: param.location, tag: param.tag});
-    }
-  },
-  _renderTopView: function() {
     return (
       <TouchableHighlight 
         underlayColor='#c8c7cc'
@@ -45,19 +25,11 @@ var ListViewExample = React.createClass({
           <View style={ styles.row } >
             <View style={ styles.textContainer }>
               <Text style={ styles.name } numberOfLines={ 1 }>
-                { this.state.location }
+                { row.location }
               </Text>
               <Text style={ styles.tag } numberOfLines={ 1 }>
-                { this.state.tag }
+                { row.tag }
               </Text>
-              <View style={ styles.countWrapB } >
-                <Text style={ styles.countB} numberOfLines={ 1 }>
-                  2
-                </Text>
-                <Text style={ styles.labelWrap }>
-                  Pin
-                </Text>
-              </View>
             </View>
           </View>
           <View style={ styles.cellBorder } />
@@ -65,55 +37,36 @@ var ListViewExample = React.createClass({
       </TouchableHighlight>
     );
   },
-  _getTabStyle: function(tabIndex){
-    if( tabIndex == this.state.tabInx ){
-      return styles.tabItemOn;
-    } else {
-      return styles.tabItemOff;
-    }
+  _onFetch: function(page = 1, callback, options) {
+    var rows = [{'location':'Toyko', 'tag':'#123 #456' }];
+    callback(rows);
   },
-  _onPressTab0: function(tabIndex){
-    this.setState( {tabInx:0} );
-  },
-  _onPressTab1: function(tabIndex){
-    this.setState( {tabInx:1} );
-  },
-  _renderTabbar: function() {
-    return (
-      <View style={{'flexDirection':'row'}}>
-        <TouchableHighlight style={ this._getTabStyle(0) } onPress={this._onPressTab0} >
-          <Text style={ styles.tabTitle }>
-            Scrap
-          </Text>
-        </TouchableHighlight>
-        <TouchableHighlight style={ this._getTabStyle(1) } onPress={this._onPressTab1}  >
-          <Text style={ styles.tabTitle }>
-            Meal
-          </Text>          
-        </TouchableHighlight>
-      </View>
-    );
-  },
-  _renderListView: function() {
-    if( 0 == this.state.tabInx ){
-      return (
-        <List1 />
-      );
-    } else {
-      return (
-        <List2 />
-      );      
-    }
-  },
+
   render: function() {
     return (
-      <View style={styles.container}>
-        {this._renderTopView()}
-        {this._renderTabbar()}
-        {this._renderListView()}
+      <View>
+        <GiftedListView
+          rowView={this._renderRowView}
+          onFetch={this._onFetch}
+          firstLoader={true} // display a loader for the first fetching
+          pagination={false} // enable infinite scrolling using touch to load more
+          refreshable={true} // enable pull-to-refresh for iOS and touch-to-refresh for Android
+          withSections={false} // enable sections
+          customStyles={{
+            refreshableView: {
+              backgroundColor: '#eee',
+            },
+          }}
+          emptyView={this._renderEmptyView}
+          PullToRefreshViewAndroidProps={{
+            colors: ['#ff0000', '#00ff00', '#0000ff'],
+            progressBackgroundColor: '#c8c7cc',
+          }}
+        />
       </View>
     );
-  }
+  },
+
 });
 
 var styles = StyleSheet.create({
@@ -220,4 +173,4 @@ var styles = StyleSheet.create({
   }
 });
 
-module.exports = ListViewExample;
+module.exports = List1;
