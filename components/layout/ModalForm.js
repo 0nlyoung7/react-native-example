@@ -12,13 +12,13 @@ var {
 } = React;
 
 
-import {Router, Route, Schema, Animations, TabBar, Actions} from 'react-native-router-flux'
+import {Router, Scene, Schema, Animations, TabBar, Actions} from 'react-native-router-flux'
 
 var FolderFormView = require( '../forms/FolderForm' );
 
-class ModalFormExample extends Route {
+class ModalFormExample extends Scene {
     className(){
-        return "Route";
+        return "Scene";
     }
 }
 

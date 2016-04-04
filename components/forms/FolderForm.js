@@ -48,7 +48,7 @@ var FormExample2 = React.createClass({
   },
   render: function() {
     return (
-      <View style={{marginTop:64}}>
+      <View style={{marginTop:64,backgroundColor:'#white'}}>
         <View style={styles.container}>
           <View style={styles.formContainer}>
             <View style={styles.itemWrapper}>

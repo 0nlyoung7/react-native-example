@@ -9,7 +9,8 @@ var Login = require('./layout/Login');
 var Login2 = require('./layout/Login2');
 var SocialLoginExample = require('./layout/SocialLoginExample');
 var RNRF = require('react-native-router-flux');
-var {Route, Schema, Animations, Actions, TabBar} = RNRF;
+var {Scene, Router, TabBar, Modal, Schema, Actions, Reducer} = RNRF;
+
 var Error = require('./layout/Error');
 var Home = require('./layout/Home');
 var TabView = require('./layout/TabView');
@@ -31,38 +32,6 @@ var ReactNativeModalBox = require('./layout/ReactNativeModalBox');
 
 import DBHelper from './libs/DBHelper'
 
-// Redux stuff is optional
-import { createStore } from 'redux'
-import { Provider, connect } from 'react-redux'
-
-function reducer(state = {}, action) {
-    switch (action.type) {
-        case Actions.BEFORE_ROUTE:
-            //console.log("BEFORE_ROUTE:", action);
-            return state;
-        case Actions.AFTER_ROUTE:
-            //console.log("AFTER_ROUTE:", action);
-            return state;
-        case Actions.AFTER_POP:
-            //console.log("AFTER_POP:", action);
-            return state;
-        case Actions.BEFORE_POP:
-            //console.log("BEFORE_POP:", action);
-            return state;
-        case Actions.AFTER_DISMISS:
-            //console.log("AFTER_DISMISS:", action);
-            return state;
-        case Actions.BEFORE_DISMISS:
-            //console.log("BEFORE_DISMISS:", action);
-            return state;
-        default:
-            return state;
-    }
-
-}
-let store = createStore(reducer);
-const Router = connect()(RNRF.Router);
-
 class TabIcon extends React.Component {
     render(){
         return (
@@ -71,11 +40,19 @@ class TabIcon extends React.Component {
     }
 }
 
-class Header extends React.Component {
-    render(){
-        return <Text>Header</Text>
+const styles = StyleSheet.create({
+    container: {flex:1, backgroundColor:"transparent",justifyContent: "center",
+        alignItems: "center",}
+
+});
+
+const reducerCreate = params=>{
+    const defaultReducer = Reducer(params);
+    return (state, action)=>{
+        console.log("ACTION:", action);
+        return defaultReducer(state, action);
     }
-}
+};
 
 var Example = React.createClass({
     getInitialState: function(){
@@ -117,60 +94,53 @@ var Example = React.createClass({
     },
     render: function(){
         return (
-            <Provider store={store}>
-                <Router hideNavBar={true} name="root">
-                    <Schema name="modal" sceneConfig={Navigator.SceneConfigs.FloatFromBottom}/>
-                    <Schema name="default" sceneConfig={Navigator.SceneConfigs.FloatFromRight}/>
-                    <Schema name="withoutAnimation"/>
-                    <Schema name="tab" type="switch" icon={TabIcon}/>
+            <Router createReducer={reducerCreate} sceneStyle={{backgroundColor:'#FFFFFF'}}>
+                <Scene key="modal" component={Modal} >
+                    <Scene key="root" hideNavBar={true}>
+                        <Scene key="register" component={Register} title="Register"/>
+                        <Scene key="home" component={Home} title="Replace" type="replace"/>
+                        <Scene key="login" direction="Vertical">
+                            <Scene key="loginModal" hideNavBar={true} component={Login}  schema="modal"/>
+                            <Scene key="loginModal2" hideNavBar={true} component={Login2} title="Login2"/>
+                        </Scene>
+                        <Scene key="socialLogin" hideNavBar={true} component={SocialLoginExample} title="SocialLogin"/>
+                        <Scene key="register2" component={Register} title="Register2"  schema="withoutAnimation"/>
+                        <Scene key="error" type="modal" component={Error}/>
+                        <Scene key="modalBox" type="modal" component={ReactNativeModalBox}/>
+                        <Scene key="webview" title="WebView" component={WebViewExample} showNavigationBar={false}/>
+                        <Scene key="webview2" title="WebView2" component={WebViewExample2} showNavigationBar={false}/>
+                        <Scene key="form" title="form" component={FormExample} showNavigationBar={false}/>
+                        <Scene key="profile" title="profile" component={ProfileExample} showNavigationBar={false}/>
+                        <Scene key="gridview" title="gridview" component={GridViewExample} showNavigationBar={false}/>
+                        <Scene key="calendarview" title="calendarview" component={CalendarExample} showNavigationBar={false}/>
+                        <Scene key="socialview" title="socialview" component={SocialShareExample} showNavigationBar={false}/>
 
-                    <Route name="register" component={Register} title="Register"/>
-                    <Route name="showActionSheet" type="actionSheet" title="What do you want to do?" options={['Delete', 'Save', 'Cancel']} cancelButtonIndex={2} destructiveButtonIndex={0}/>
-                    <Route name="home" component={Home} title="Replace" type="replace"/>
-                    <Route name="login" schema="modal">
-                        <Router name="loginRouter">
-                            <Route name="loginModal" hideNavBar={true} component={Login}  schema="modal"/>
-                            <Route name="loginModal2" hideNavBar={true} component={Login2} title="Login2"/>
-                        </Router>
-                    </Route>
-                    <Route name="socialLogin" hideNavBar={true} component={SocialLoginExample} title="SocialLogin"/>
-                    <Route name="register2" component={Register} title="Register2"  schema="withoutAnimation"/>
-                    <Route name="error" type="modal" component={Error}/>
-                    <Route name="modalBox" type="modal" component={ReactNativeModalBox}/>
-                    <Route name="webview" title="WebView" component={WebViewExample} showNavigationBar={false}/>
-                    <Route name="webview2" title="WebView2" component={WebViewExample2} showNavigationBar={false}/>
-                    <Route name="form" title="form" component={FormExample} showNavigationBar={false}/>
-                    <ModalForm name="modalform" title="form" wrapRouter={true}  />
-                    <Route name="profile" title="profile" component={ProfileExample} showNavigationBar={false}/>
-                    <Route name="gridview" title="gridview" component={GridViewExample} showNavigationBar={false}/>
-                    <Route name="calendarview" title="calendarview" component={CalendarExample} showNavigationBar={false}/>
-                    <Route name="socialview" title="socialview" component={SocialShareExample} showNavigationBar={false}/>
-
-                    <Route name="tabbar">
-                        <Router footer={TabBar} showNavigationBar={false} tabBarStyle={{backgroundColor: '#f2f2f2'}}>
-                            <Route name="tab1" schema="tab" title="Tab #1" initial={true}>
-                                <Router onPop={()=>{console.log("onPop is called!"); return true} }>
-                                    <Route name="tab1_1" component={TabView} title="Tab #1_1" />
-                                    <Route name="tab1_2" component={TabView} title="Tab #1_2" />
-                                </Router>
-                            </Route>
-                            <Route name="tab2" schema="tab" title="Tab #2" >
-                                <Router onPop={()=>{console.log("onPop is called!"); return true} }>
-                                    <Route name="tab2_1" component={TabView} title="Tab #2_1" />
-                                    <Route name="tab2_2" component={TabView} title="Tab #2_2" />
-                                </Router>
-                            </Route>
-                            <Route name="tab3" schema="tab" title="ListView" component={ListViewExample} />
-                            <Route name="tab4" schema="tab" title="MapView" component={MapViewExample} />
-                        </Router>
-                    </Route>
-                    <Route name="detailView" type="push" title="DetailView" wrapRouter={true} component={DetailViewExample} />
-                    <Route name="launch" component={Launch} wrapRouter={true} title="Launch" hideNavBar={true}/>
-                    <Route name="swiper" component={SwiperExample} wrapRouter={true} title="Swiper" hideNavBar={true}/>
-                    <Route name="splash" title="splash" component={Splash} showNavigationBar={false} schema="withoutAnimation"/>
-                    <Route name="blank" initial={true} title="blank" component={Blank} showNavigationBar={false} schema="withoutAnimation"/>
-                </Router>
-            </Provider>
+                        <Scene key="tabbar" tabs={true} default="tab1">
+                            <Scene key="tab1" title="Tab #1" initial={true} icon={TabIcon}>
+                                <Scene key="tab1_1" component={TabView} title="Tab #1_1" />
+                                <Scene key="tab1_2" component={TabView} title="Tab #1_2" />
+                            </Scene>
+                            <Scene key="tab2" title="Tab #2" icon={TabIcon}>
+                                <Scene key="tab2_1" component={TabView} title="Tab #2_1" />
+                                <Scene key="tab2_2" component={TabView} title="Tab #2_2" />
+                            </Scene>
+                            <Scene key="tab3" title="Tab #3" icon={TabIcon} >
+                                <Scene key="listView" title="ListView" component={ListViewExample} />
+                                <Scene key="detailView" title="DetailView" component={DetailViewExample} />
+                                <ModalForm key="modalform" title="Form"  />
+                            </Scene>
+                            <Scene key="tab4" title="Tab #4" icon={TabIcon} >
+                                <Scene key="mapView" title="MapView" component={MapViewExample} />
+                            </Scene>
+                        </Scene>
+                        <Scene key="launch" component={Launch}  title="Launch" hideNavBar={true}/>
+                        <Scene key="swiper" component={SwiperExample}  title="Swiper" hideNavBar={true}/>
+                        <Scene key="splash" title="splash" component={Splash} showNavigationBar={false} schema="withoutAnimation"/>
+                        <Scene key="blank" initial={true} title="blank" component={Blank} showNavigationBar={false} schema="withoutAnimation"/>
+                    </Scene>
+                    <Scene key="error" component={Error}/>
+                </Scene>
+            </Router>
         );
     }
 })

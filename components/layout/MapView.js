@@ -202,7 +202,9 @@ var MapViewExample = React.createClass({
 
 var styles = StyleSheet.create({
   container: {
-    marginTop: 64
+    flex: 1,
+    backgroundColor: '#FFF',
+    marginTop: 64,
   },
   map: {
     height: 150,
