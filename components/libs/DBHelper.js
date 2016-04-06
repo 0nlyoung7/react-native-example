@@ -17,13 +17,16 @@ var tables = [
 			{name: 'forder_id', type: 'text'},
 			{name: 'title', type: 'text'},
 			{name: 'tag', type: 'text'},
-			{name: 'message', type: 'text'},
+			{name: 'memo', type: 'text'},
+
 			{name: 'thumbnail', type: 'text'},
 			{name: 'url',  type: 'text'},
-			{name: 'type', type: 'text'},
 			{name: 'map_url',  type: 'text'},
+			
+			{name: 'location', type: 'text'},
 			{name: 'lat', type: 'integer'},
 			{name: 'lon', type: 'integer'},
+
 			{name: 'created', type: 'integer'},
 			{name: 'updated', type: 'integer'},
 			{name: 'owner_id', type: 'text'}
@@ -46,7 +49,7 @@ var tables = [
 			{name: 'owner_id', type: 'text'}
 		],
 		table_index : [{ type : '', name : 'IDX_TB_FOLDER', columns : [ 'forder_id', 'owner_id' ] }]
-	},
+	}
 ];
 
 

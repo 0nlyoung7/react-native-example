@@ -30,6 +30,7 @@ var ListViewExample = React.createClass({
     };
   },
   componentDidMount: function() {
+
     var self = this;
     SessionStore.get(function(user){
       self.setState({
