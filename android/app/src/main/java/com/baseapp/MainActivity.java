@@ -2,6 +2,8 @@ package com.baseapp;
 
 import com.baseapp.GoogleMapBridge.GoogleMapBridgePackage;
 import com.facebook.react.ReactActivity;
+import com.github.alinz.reactnativewebviewbridge.WebViewBridgePackage;
+import com.rota.rngmaps.RNGMapsPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -37,6 +39,8 @@ import java.util.List;
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
         new MainReactPackage(),
+        new WebViewBridgePackage(),
+        new RNGMapsPackage(),
         new VectorIconsPackage(),
         new GoogleMapBridgePackage()
       );

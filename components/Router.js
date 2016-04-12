@@ -14,7 +14,7 @@ var {Scene, Router, TabBar, Modal, Schema, Actions, Reducer} = RNRF;
 var Error = require('./layout/Error');
 var Home = require('./layout/Home');
 var TabView = require('./layout/TabView');
-var MapViewExample = require('./layout/MapView');
+var MapViewExample2 = require('./layout/MapView2');
 var CalendarExample = require('./layout/Calendar');
 var WebViewExample = require('./layout/WebView');
 var WebViewExample2 = require('./layout/WebView2');
@@ -132,7 +132,7 @@ var Example = React.createClass({
                                 <ModalForm key="modalform" title="Form"  />
                             </Scene>
                             <Scene key="tab4" title="Tab #4" icon={TabIcon} >
-                                <Scene key="mapView" title="MapView" component={MapViewExample} />
+                                <Scene key="mapView" title="MapView" component={MapViewExample2} />
                             </Scene>
                         </Scene>
                         <Scene key="launch" component={Launch}  title="Launch" hideNavBar={true}/>
