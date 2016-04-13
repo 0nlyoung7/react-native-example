@@ -13,10 +13,39 @@ var {
 } = React;
 
 var MapView = require('react-native-maps');
+var allMarkers = [];
+
+function filterByColor(color) {
+  return function(obj) {
+    if ('color' in obj && obj.color == color) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+}
 
 var MapView2 = React.createClass({
   getInitialState: function() {
     return {
+      markers:[
+        { coordinate: { longitude: -122.3905941766903, latitude: 37.76212204839051 },
+          key: '1',
+          color: 'red'
+        },
+        { coordinate: { longitude: -122.41, latitude: 37.78},
+          key: '2',
+          color: 'blue'
+        },
+        { coordinate: { longitude: -122.38111, latitude: 37.766},
+          key: '3',
+          color: 'red'
+        },
+        { coordinate: { longitude: -122.39, latitude: 37.7777},
+          key: '4',
+          color: 'blue'
+        }
+      ],
       region: {
         latitude: 37.78825,
         longitude: -122.4324,
@@ -25,13 +54,42 @@ var MapView2 = React.createClass({
       }
     };
   },
+  componentDidMount: function() {
+    allMarkers = allMarkers.concat( this.state.markers );
+  },
+  filterRed: function() {
+    this.setState( {markers: allMarkers.filter( filterByColor("red") ) } );
+  },
+  filterBlue: function() {
+    this.setState( {markers: allMarkers.filter( filterByColor("blue") ) } );
+  },
   render: function() {
     return (
       <View style={ styles.container }>
-        <MapView 
-          style={ styles.map }
-          region={this.state.region}
-        />
+
+        <View style={ styles.mapContainer }>
+          <MapView 
+            style={ styles.map }
+            region={this.state.region}
+            >
+            {this.state.markers.map(marker => (
+              <MapView.Marker 
+                coordinate={marker.coordinate}
+                title={marker.key}
+                pinColor={marker.color}
+              />
+            ))}
+          </MapView>
+          <View style={styles.topButtonContainer}>
+            <TouchableOpacity onPress={this.filterRed} style={[styles.bubble, styles.button]}>
+              <Text>Red</Text>
+            </TouchableOpacity>
+            <View style={{marginTop:6}}/>
+            <TouchableOpacity onPress={this.filterBlue} style={[styles.bubble, styles.button]}>
+              <Text>Blue</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
       </View>
     );
   }
@@ -39,15 +97,45 @@ var MapView2 = React.createClass({
 
 var styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: '#FFF',
     marginTop: 64,
+    height:300
+  },
+  mapContainer: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
   },
   map: {
-    height: 150,
-    margin: 10,
-    borderWidth: 1,
-    borderColor: '#000000',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+  },
+  bubble: {
+    flex: 1,
+    backgroundColor: 'rgba(255,255,255,0.7)',
+    paddingHorizontal: 18,
+    paddingVertical: 12,
+    borderRadius: 20
+  },
+  button: {
+    width: 60,
+    paddingHorizontal: 12,
+    alignItems: 'center',
+    marginHorizontal: 10,
+  },
+  topButtonContainer: {
+    position: 'absolute',
+    top: 10,
+    right: 0,
+    flexDirection: 'column',
+    backgroundColor: 'transparent',
   }
 });
 
