@@ -28,24 +28,7 @@ function filterByColor(color) {
 var MapView2 = React.createClass({
   getInitialState: function() {
     return {
-      markers:[
-        { coordinate: { longitude: -122.3905941766903, latitude: 37.76212204839051 },
-          key: '1',
-          color: 'red'
-        },
-        { coordinate: { longitude: -122.41, latitude: 37.78},
-          key: '2',
-          color: 'blue'
-        },
-        { coordinate: { longitude: -122.38111, latitude: 37.766},
-          key: '3',
-          color: 'red'
-        },
-        { coordinate: { longitude: -122.39, latitude: 37.7777},
-          key: '4',
-          color: 'blue'
-        }
-      ],
+      markers:[],
       region: {
         latitude: 37.78825,
         longitude: -122.4324,
@@ -55,13 +38,55 @@ var MapView2 = React.createClass({
     };
   },
   componentDidMount: function() {
-    allMarkers = allMarkers.concat( this.state.markers );
+    allMarkers = [
+      { coordinate: { longitude: -122.3905941766903, latitude: 37.76212204839051 },
+        key: 'm1',
+        color: 'red',
+        type:'T',
+        title:'Apple'
+      },
+      { coordinate: { longitude: -122.41, latitude: 37.78},
+        key: 'm2',
+        color: 'blue',
+        type:'M',
+        title:'Google'
+      },
+      { coordinate: { longitude: -122.38111, latitude: 37.766},
+        key: 'm3',
+        color: 'red',
+        type:'T',
+        title:'Facebook'
+      },
+      { coordinate: { longitude: -122.39, latitude: 37.7777},
+        key: 'm4',
+        color: 'blue',
+        type:'M',
+        title:'Twitter'
+      },
+      { coordinate: { longitude: -122.3922, latitude: 37.78899},
+        key: 'm5',
+        color: 'blue',
+        type:'M',
+        title:'Instagram'
+      }
+    ];
+
+    this.setState( {markers: allMarkers } );
   },
   filterRed: function() {
     this.setState( {markers: allMarkers.filter( filterByColor("red") ) } );
   },
   filterBlue: function() {
     this.setState( {markers: allMarkers.filter( filterByColor("blue") ) } );
+  },
+  _onSelectMarker: function(e) {
+    var markerStr = e.dispatchMarker;
+    var markerRefId = "m"+markerStr.substring( markerStr.lastIndexOf( "\." ) + 1 );
+
+    var self = this;
+    setTimeout(function(){
+      self.refs[markerRefId].hideCallout();
+    }, 500);
   },
   render: function() {
     return (
@@ -74,9 +99,11 @@ var MapView2 = React.createClass({
             >
             {this.state.markers.map(marker => (
               <MapView.Marker 
+                ref={marker.key}              
                 coordinate={marker.coordinate}
                 title={marker.key}
                 pinColor={marker.color}
+                onSelect={ this._onSelectMarker.bind(this) }
               />
             ))}
           </MapView>
