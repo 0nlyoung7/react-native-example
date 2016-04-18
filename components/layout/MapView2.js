@@ -40,37 +40,37 @@ var MapView2 = React.createClass({
   componentDidMount: function() {
     allMarkers = [
       { coordinate: { longitude: -122.3905941766903, latitude: 37.76212204839051 },
-        key: 'm1',
+        key: 'm0',
         color: 'red',
         type:'T',
         title:'Apple'
       },
       { coordinate: { longitude: -122.41, latitude: 37.78},
-        key: 'm2',
+        key: 'm1',
         color: 'blue',
         type:'M',
         title:'Google'
       },
       { coordinate: { longitude: -122.38111, latitude: 37.766},
-        key: 'm3',
+        key: 'm2',
         color: 'red',
         type:'T',
         title:'Facebook'
       },
       { coordinate: { longitude: -122.39, latitude: 37.7777},
-        key: 'm4',
+        key: 'm3',
         color: 'blue',
         type:'M',
         title:'Twitter'
       },
       { coordinate: { longitude: -122.3922, latitude: 37.78899},
-        key: 'm5',
+        key: 'm4',
         color: 'blue',
         type:'M',
         title:'Instagram'
       }
     ];
-
+    
     this.setState( {markers: allMarkers } );
   },
   filterRed: function() {

@@ -33,6 +33,7 @@
   if (NSClassFromString(className)) {
     id object = [NSClassFromString(className) performSelector:@selector(sharedApplication)];
     [object performSelector:@selector(openURL:) withObject:destinationURL];
+    [self.extensionContext completeRequestReturningItems:@[] completionHandler:nil];
   }
 }
 
