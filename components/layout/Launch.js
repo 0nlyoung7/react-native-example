@@ -39,6 +39,7 @@ class Launch extends React.Component {
                 <Button onPress={Actions.gridview}>Go to GridView page</Button>
                 <Button onPress={Actions.calendarview}>Go to CalendarView page</Button>
                 <Button onPress={Actions.socialview}>Go to SocialView page</Button>
+                <Button onPress={Actions.swipeCard}>Go to SwipeCard</Button>
                 <Button onPress={()=>Actions.showActionSheet({callback:index=>alert("Selected:"+index)})}>Show ActionSheet</Button>
             </View>
         );

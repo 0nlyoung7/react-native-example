@@ -29,6 +29,7 @@ var Splash = require('./layout/Splash');
 var Blank = require('./layout/Blank');
 var SocialShareExample = require('./layout/SocialShareExample');
 var ReactNativeModalBox = require('./layout/ReactNativeModalBox');
+var SwipeCard = require('./layout/SwipeCard2');
 
 import DBHelper from './libs/DBHelper'
 
@@ -133,10 +134,11 @@ var Example = React.createClass({
                                 <Scene key="mapView" title="MapView" component={MapViewExample2} />
                             </Scene>
                         </Scene>
-                        <Scene key="launch" component={Launch}  title="Launch" hideNavBar={true}/>
+                        <Scene key="launch" component={Launch}  title="Launch" hideNavBar={true} type="replace"/>
+                        <Scene key="swipeCard" component={SwipeCard}  title="SwipeCard" hideNavBar={false} type="replace"/>
                         <Scene key="swiper" component={SwiperExample}  title="Swiper" hideNavBar={true}/>
-                        <Scene key="splash" title="splash" component={Splash} showNavigationBar={false} schema="withoutAnimation"/>
-                        <Scene key="blank" initial={true} title="blank" component={Blank} showNavigationBar={false} schema="withoutAnimation"/>
+                        <Scene key="splash" title="splash" component={Splash} showNavigationBar={false} schema="withoutAnimation" type="replace"/>
+                        <Scene key="blank" initial={true} title="blank" component={Blank} showNavigationBar={false} schema="withoutAnimation" type="replace"/>
                     </Scene>
                     <Scene key="error" component={Error}/>
                 </Scene>
