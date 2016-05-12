@@ -1,5 +1,12 @@
 import WebViewBridge from 'react-native-webview-bridge';
 
+
+import ViewSnapshotter from 'react-native-view-snapshot';
+
+import ActionButton from 'react-native-action-button';
+
+import RNFS from "react-native-fs";
+
 var React = require('react-native');
 var {
   StyleSheet,
@@ -42,7 +49,7 @@ const injectScript = `
 
   webViewBridgeReady(function (webViewBridge) {
     webViewBridge.onMessage = function (message) {
-      alert('got a message from Native: ' + message);
+      //alert('got a message from Native: ' + message);
 
       webViewBridge.send( getNaverMapInfo() );
     };
@@ -60,6 +67,21 @@ var WebViewExample2 = React.createClass({
         url:'http://www.naver.com'
       }
   },
+  takeSnapshot: function(){
+    var ref = React.findNodeHandle(this.refs.container);
+
+    ViewSnapshotter.saveSnapshotToPath(ref, this.imagePath(), (error, successfulWrite) => {
+        if (successfulWrite) {
+            console.log( 'success' );
+            this.setState({catSaved: true})
+        } else {
+          console.log(error)
+        }
+    });
+  },
+  imagePath: function(){
+    return RNFS.CachesDirectoryPath+"/webview" + Date.now()+ ".png";
+  },
   componentWillMount: function(){
     if( this.props.data ){
       this.setState({
@@ -72,7 +94,7 @@ var WebViewExample2 = React.createClass({
   },
   render: function() {
     return (
-      <View style={[styles.container]}>
+      <View style={[styles.container]} ref="container">
         <WebViewBridge
           ref="webviewbridge"
           style={styles.webView}
@@ -80,6 +102,11 @@ var WebViewExample2 = React.createClass({
           injectedJavaScript={injectScript}
           scalesPageToFit={true}
           source={{uri:this.state.url}}/>
+        <ActionButton 
+          buttonColor="rgba(231,76,60,1)" 
+          onPress={ this.takeSnapshot }
+          offsetY={60}
+        />
       </View>
     );
   }

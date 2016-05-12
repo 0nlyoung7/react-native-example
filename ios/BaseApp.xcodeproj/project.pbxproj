@@ -33,6 +33,8 @@
 		1A374AFA1CA2BB4000F190D8 /* SocialLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A374AF91CA2BB4000F190D8 /* SocialLogin.m */; };
 		1A932B831C982DF700F60224 /* KakaoOpenSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A932B821C982DF700F60224 /* KakaoOpenSDK.framework */; };
 		1AC01ED61CBD078B007E0520 /* libAirMaps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC01ED51CBD0750007E0520 /* libAirMaps.a */; };
+		1AF90DB11CE4A464009BCF08 /* ViewSnapshotter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AF90DB01CE4A464009BCF08 /* ViewSnapshotter.m */; };
+		1AF90DC61CE4A604009BCF08 /* libRNFS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AF90DC51CE4A5D6009BCF08 /* libRNFS.a */; };
 		3396B6B0F9C748198B9AD0E9 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 91E6AF1BC87D42AC84502A33 /* MaterialIcons.ttf */; };
 		446F6264E1B147C781026255 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 412CB0983B1D499AAB420E47 /* FontAwesome.ttf */; };
 		5119C803DF0A426EA3980BF1 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4C8B07450BD5459FB9D455E2 /* Entypo.ttf */; };
@@ -144,6 +146,13 @@
 			remoteGlobalIDString = 11FA5C511C4A1296003AC2EE;
 			remoteInfo = AirMaps;
 		};
+		1AF90DC41CE4A5D6009BCF08 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1AF90DC01CE4A5D6009BCF08 /* RNFS.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F12AFB9B1ADAF8F800E0535D;
+			remoteInfo = RNFS;
+		};
 		78C398B81ACF4ADC00677621 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */;
@@ -214,6 +223,9 @@
 		1A932B821C982DF700F60224 /* KakaoOpenSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KakaoOpenSDK.framework; sourceTree = "<group>"; };
 		1ABE988A1C937FBB00E94AEA /* BaseApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = BaseApp.entitlements; path = BaseApp/BaseApp.entitlements; sourceTree = "<group>"; };
 		1AC01ED01CBD0750007E0520 /* AirMaps.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AirMaps.xcodeproj; path = "../node_modules/react-native-maps/ios/AirMaps.xcodeproj"; sourceTree = "<group>"; };
+		1AF90DAF1CE4A464009BCF08 /* ViewSnapshotter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewSnapshotter.h; sourceTree = "<group>"; };
+		1AF90DB01CE4A464009BCF08 /* ViewSnapshotter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewSnapshotter.m; sourceTree = "<group>"; };
+		1AF90DC01CE4A5D6009BCF08 /* RNFS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNFS.xcodeproj; path = "../node_modules/react-native-fs/RNFS.xcodeproj"; sourceTree = "<group>"; };
 		2620D9547C564480A000CB41 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		2A3A81970540468CA7473F8F /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		412CB0983B1D499AAB420E47 /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
@@ -238,6 +250,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1AF90DC61CE4A604009BCF08 /* libRNFS.a in Frameworks */,
 				1AC01ED61CBD078B007E0520 /* libAirMaps.a in Frameworks */,
 				1A16B43F1C9BEDA8006AF50C /* libSQLite.a in Frameworks */,
 				1A16B4221C9BECE3006AF50C /* libsqlite3.dylib in Frameworks */,
@@ -345,6 +358,8 @@
 		13B07FAE1A68108700A75B9A /* BaseApp */ = {
 			isa = PBXGroup;
 			children = (
+				1AF90DAF1CE4A464009BCF08 /* ViewSnapshotter.h */,
+				1AF90DB01CE4A464009BCF08 /* ViewSnapshotter.m */,
 				1ABE988A1C937FBB00E94AEA /* BaseApp.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -413,6 +428,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		1AF90DC11CE4A5D6009BCF08 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1AF90DC51CE4A5D6009BCF08 /* libRNFS.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		678D495BAA534D73B091D212 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -439,6 +462,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				1AF90DC01CE4A5D6009BCF08 /* RNFS.xcodeproj */,
 				1AC01ED01CBD0750007E0520 /* AirMaps.xcodeproj */,
 				1A16B40C1C9BEC00006AF50C /* SQLite.xcodeproj */,
 				1A23018A1C82A4E70043597D /* React-Native-Webview-Bridge.xcodeproj */,
@@ -644,6 +668,10 @@
 					ProjectRef = 146833FF1AC3E56700842450 /* React.xcodeproj */;
 				},
 				{
+					ProductGroup = 1AF90DC11CE4A5D6009BCF08 /* Products */;
+					ProjectRef = 1AF90DC01CE4A5D6009BCF08 /* RNFS.xcodeproj */;
+				},
+				{
 					ProductGroup = 1A16B44C1C9BFBC7006AF50C /* Products */;
 					ProjectRef = E198FC4D079249E19EBC1058 /* RNVectorIcons.xcodeproj */;
 				},
@@ -746,6 +774,13 @@
 			remoteRef = 1AC01ED41CBD0750007E0520 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		1AF90DC51CE4A5D6009BCF08 /* libRNFS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNFS.a;
+			remoteRef = 1AF90DC41CE4A5D6009BCF08 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		78C398B91ACF4ADC00677621 /* libRCTLinking.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -828,6 +863,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1A374AFA1CA2BB4000F190D8 /* SocialLogin.m in Sources */,
+				1AF90DB11CE4A464009BCF08 /* ViewSnapshotter.m in Sources */,
 				1A20AFDD1C98209500093774 /* SocialShare.m in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
